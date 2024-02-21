@@ -1,0 +1,7 @@
+{
+  "id": "kabansmp-injector",
+  "version": "1.0.0",
+  "mixins": [
+    "mixins.kabansmp.json"
+  ]
+}

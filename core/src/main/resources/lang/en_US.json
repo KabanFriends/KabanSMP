@@ -1,0 +1,46 @@
+{
+  "all.command.notLoaded": "You cannot use this command on this server.",
+
+  "all.minecraft.java": "using Java Edition",
+  "all.minecraft.bedrock": "using Bedrock Edition",
+
+  "all.teleport.cooldown": "You cannot teleport until {0} passes since you took damage.",
+  "all.teleport.notStanding": "You can only teleport while you are standing on ground!",
+
+  "all.time.seconds": "{0:(second; seconds)}",
+
+  "all.form.button.ok": "OK",
+
+  "all.chat.clickToOpen": "Click to open",
+  "all.chat.clickToSelect": "Click to select",
+
+  "base.command.reloadlang.success": "Language files have been reloaded.",
+
+  "join.message.joined": "{0} joined ({1})",
+  "join.message.left": "{0} left",
+  "join.message.website": "Check out the website to see all features of our server: {0}",
+
+  "pvp.command.pvp.enabled": "PVP has been enabled. You can fight with other players who also have PVP enabled.",
+  "pvp.command.pvp.disabled": "PVP has been disabled. Other players cannot hurt you.",
+
+  "home.command.home.notSet": "You haven't set your home point yet! Use {0} to set your home.",
+  "home.command.home.success": "Teleported to your home.",
+  "home.command.sethome.success": "Your home has been set to the current position. Use {0} to teleport back here.",
+
+  "tablist.header.players": "Players: {0}",
+  "tablist.footer.balance": "Balance: {0}",
+  "tablist.footer.coordinate": "Position: {0}",
+
+  "hardcore.form.title": "Hardcore Mode",
+  "hardcore.form.description": "Do you want to enable hardcore mode? It cannot be turned off once you enable it.",
+  "hardcore.form.instruction": "(Click the options below)",
+  "hardcore.form.button.yes": "Enable",
+  "hardcore.form.button.no": "Cancel",
+  "hardcore.message.unavailable": "You cannot enable hardcore mode, as you have already died in the past.",
+  "hardcore.message.enabled": "You have enabled the hardcore mode. You will stay in this mode until you die.",
+  "hardcore.message.alreadyEnabled": "Hardcore mode is currently enabled.",
+  "hardcore.message.died": "You died! The hardcore mode was disabled.",
+  "hardcore.tooltip.chatTag": "Hardcore Mode",
+
+  "collision.kickReason": "The server is still loading! Please try again in a few seconds."
+}

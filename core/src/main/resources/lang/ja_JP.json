@@ -1,0 +1,44 @@
+{
+  "all.command.notLoaded": "このコマンドは、このサーバーでは使用できません。",
+
+  "all.minecraft.java": "Java版",
+  "all.minecraft.bedrock": "Bedrock版",
+
+  "all.teleport.cooldown": "ダメージを受けてから{0}経つまで、ワープできません。",
+  "all.teleport.notStanding": "地面に立っているとき以外、ワープできません。",
+
+  "all.time.seconds": "{0}秒",
+
+  "all.chat.clickToOpen": "クリックで開く",
+  "all.chat.clickToSelect": "クリックで選ぶ",
+
+  "base.command.reloadlang.success": "言語ファイルを再読み込みしました。",
+
+  "join.message.joined": "{0}が参加しました ({1})",
+  "join.message.left": "{0}が退出しました",
+  "join.message.website": "サーバーの独自機能をウェブサイトで紹介しています。\n是非見てね!! →→→ {0}",
+
+  "pvp.command.pvp.enabled": "PVPをONにしました。 PVPをONにしている他のプレイヤーと戦うことができます。",
+  "pvp.command.pvp.disabled": "PVPをOFFにしました。 他のプレイヤーはあなたを攻撃できません。",
+
+  "home.command.home.notSet": "ホーム地点を設定していないので、ワープできません。 {0}でホーム地点を決めてください。",
+  "home.command.home.success": "ホーム地点にワープしました。",
+  "home.command.sethome.success": "ホーム地点を設定しました。 {0}でこの場所にワープできます。",
+
+  "tablist.header.players": "プレイヤー数: {0}",
+  "tablist.footer.balance": "所持金: {0}",
+  "tablist.footer.coordinate": "位置: {0}",
+
+  "hardcore.form.title": "ハードコアモード",
+  "hardcore.form.description": "ハードコアモードをONにしますか？ 一度ONにするとキャンセルできません。",
+  "hardcore.form.instruction": "(下の選択肢をクリックしてください)",
+  "hardcore.form.button.yes": "ONにする",
+  "hardcore.form.button.no": "キャンセル",
+  "hardcore.message.unavailable": "これまでに一度死んでいるので、ハードコアモードはONにできません。",
+  "hardcore.message.enabled": "ハードコアモードをONにしました。 一度死ぬとハードコアモードは自動的に終了します。",
+  "hardcore.message.alreadyEnabled": "ハードコアモードは現在ONです。",
+  "hardcore.message.died": "死んでしまったので、ハードコアモードは終了しました。",
+  "hardcore.tooltip.chatTag": "ハードコアモード",
+
+  "collision.kickReason": "サーバーはロード中です。\n数秒後にもう一度お試しください。"
+}
