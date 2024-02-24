@@ -18,6 +18,7 @@ public enum Format {
 
     HOME_NOTIFY("⌂", ServerColors.SKY, ServerColors.AQUA_LIGHT_3),
     HOME_SUCCESS("⌂", ServerColors.LIME, ServerColors.GREEN_LIGHT_3),
+    HOME_FAIL("⌂", ServerColors.RED, ServerColors.RED_LIGHT_3),
 
     HARDCORE_NOTIFY("❣", ServerColors.SKY, ServerColors.AQUA_LIGHT_3),
     HARDCORE_SUCCESS("❣", ServerColors.LIME, ServerColors.GREEN_LIGHT_3),

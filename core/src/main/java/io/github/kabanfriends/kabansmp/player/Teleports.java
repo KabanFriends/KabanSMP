@@ -22,18 +22,25 @@ public class Teleports {
         return Bukkit.getCurrentTick() - DamageModule.LAST_DAMAGE_TICKS.get(player) > ALLOW_TELEPORT_TICKS * 20;
     }
 
-    public static void teleport(Player player, Location location, boolean force, Runnable after) {
-        if (!force && !canTeleport(player)) {
+    public static boolean checkAndNotifyTeleport(Player player) {
+        if (!canTeleport(player)) {
             player.sendMessage(Components.formatted(
                     Format.GENERIC_FAIL,
                     "all.teleport.cooldown",
                     Components.translatable("all.time.seconds", ALLOW_TELEPORT_TICKS).color(ServerColors.MUSTARD)
             ));
-            return;
+            return false;
         }
 
-        if (!force && !player.isOnGround()) {
+        if (!player.isOnGround()) {
             player.sendMessage(Components.formatted(Format.GENERIC_FAIL, "all.teleport.notStanding"));
+            return false;
+        }
+        return true;
+    }
+
+    public static void teleport(Player player, Location location, boolean force, Runnable after) {
+        if (!force && !checkAndNotifyTeleport(player)) {
             return;
         }
 

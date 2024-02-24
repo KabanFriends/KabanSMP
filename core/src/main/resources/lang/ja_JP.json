@@ -22,6 +22,9 @@
   "pvp.command.pvp.disabled": "PVPをOFFにしました。 他のプレイヤーはあなたを攻撃できません。",
 
   "home.command.home.notSet": "ホーム地点を設定していないので、ワープできません。 {0}でホーム地点を決めてください。",
+  "home.command.home.notSafe": "ホーム地点の付近に安全な場所が見つからないので、ワープできません。",
+  "home.command.home.moved": "ホーム地点に安全にワープできないため、近くの場所にワープしました。 {0}でホーム地点を再設定することをおすすめします。",
+  "home.command.home.cooldown": "クールダウン中です。あと{0}待ってからもう一度お試しください。",
   "home.command.home.success": "ホーム地点にワープしました。",
   "home.command.sethome.success": "ホーム地点を設定しました。 {0}でこの場所にワープできます。",
 
