@@ -23,7 +23,7 @@ public class AutosaveModule implements Module {
                 doAutosave();
                 KabanSMPPlugin.getInstance().getLogger().log(Level.INFO, "Autosave finished");
             }
-        }.runTaskTimer(KabanSMPPlugin.getInstance(), AUTOSAVE_INTERVAL * 20, AUTOSAVE_INTERVAL * 20);
+        }.runTaskTimerAsynchronously(KabanSMPPlugin.getInstance(), AUTOSAVE_INTERVAL * 20, AUTOSAVE_INTERVAL * 20);
     }
 
     public static void doAutosave() {

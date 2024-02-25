@@ -24,6 +24,9 @@
   "pvp.command.pvp.disabled": "PVP has been disabled. Other players cannot hurt you.",
 
   "home.command.home.notSet": "You haven't set your home point yet! Use {0} to set your home.",
+  "home.command.home.notSafe": "Could not find a safe place near your home to teleport to.",
+  "home.command.home.moved": "Teleported to a nearby safe place instead as your home location is no longer available. It is recommended to set your home again with {0}.",
+  "home.command.home.cooldown": "Please wait {0} more before using this command again.",
   "home.command.home.success": "Teleported to your home.",
   "home.command.sethome.success": "Your home has been set to the current position. Use {0} to teleport back here.",
 
