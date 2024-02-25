@@ -33,7 +33,7 @@ public class CommandHome implements SMPCommand {
                 player.sendMessage(Components.formatted(
                         Format.HOME_FAIL,
                         "home.command.home.cooldown",
-                        Component.text(String.format("%.1f", left / 20f)).color(ServerColors.MUSTARD)
+                        Components.translatable("all.time.seconds", left / 20f).color(ServerColors.MUSTARD)
                 ));
                 return true;
             }
