@@ -72,15 +72,17 @@ public class TablistModule implements Module {
         // Send tablist header and footer
         player.sendPlayerListHeader(Components.newlined(header));
 
-        // Set tablist player name
-        String prefix = chat.getGroupPrefix(player.getWorld(), chat.getPrimaryGroup(player));
-        prefix = prefix.replaceAll("#([a-fA-F0-9]{6})", "§#$1");
-        Component name = Component.empty();
-        if (!prefix.isEmpty()) {
-            name = Components.legacy(prefix).appendSpace();
-        }
+        if (TablistConfig.customPlayerName) {
+            // Set tablist player name
+            String prefix = chat.getGroupPrefix(player.getWorld(), chat.getPrimaryGroup(player));
+            prefix = prefix.replaceAll("#([a-fA-F0-9]{6})", "§#$1");
+            Component name = Component.empty();
+            if (!prefix.isEmpty()) {
+                name = Components.legacy(prefix).appendSpace();
+            }
 
-        player.playerListName(name.append(player.displayName()));
+            player.playerListName(name.append(player.displayName()));
+        }
     }
 
     private static boolean isVanished(Player player) {

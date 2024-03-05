@@ -17,6 +17,7 @@ public class TablistConfig {
 
     public static boolean showServerName = false;
     public static boolean showMoney = false;
+    public static boolean customPlayerName = false;
 
     public static Component serverName = Component.empty();
 
@@ -37,6 +38,7 @@ public class TablistConfig {
             if (json != null) {
                 showServerName = json.getAsJsonPrimitive("showServerName").getAsBoolean();
                 showMoney = json.getAsJsonPrimitive("showMoney").getAsBoolean();
+                customPlayerName = json.getAsJsonPrimitive("customPlayerName").getAsBoolean();
 
                 if (showServerName) {
                     serverName = MiniMessage.miniMessage().deserialize(json.getAsJsonPrimitive("serverName").getAsString());
