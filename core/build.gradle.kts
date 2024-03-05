@@ -22,6 +22,7 @@ dependencies {
 
     implementation(project(":translation"))
     implementation(project(":injector"))
+    implementation(project(":networking"))
     implementation("org.geysermc.floodgate:api:${floodgateVersion}")
     implementation("com.github.MilkBowl:VaultAPI:${vaultVersion}") {
         exclude("org.bukkit")
