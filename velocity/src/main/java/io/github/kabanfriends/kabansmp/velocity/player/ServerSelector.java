@@ -123,6 +123,7 @@ public class ServerSelector {
                             acceptPrompt(player, server);
                         } else {
                             pp.playSound(Sound.BLOCK_NOTE_BLOCK_BASS, SoundCategory.MASTER, 1.0f, 1.0f);
+                            openJavaGui(player);
                         }
                         break;
                     }
