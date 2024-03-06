@@ -9,6 +9,7 @@ import io.github.kabanfriends.kabansmp.networking.packet.RedisPacketHandler;
 import io.github.kabanfriends.kabansmp.networking.packet.impl.PlayerChangeServerPacket;
 import io.github.kabanfriends.kabansmp.networking.packet.impl.PlayerJoinPacket;
 import io.github.kabanfriends.kabansmp.networking.packet.impl.PlayerQuitPacket;
+import io.github.kabanfriends.kabansmp.velocity.player.PlayerUtil;
 import io.github.kabanfriends.kabansmp.velocity.player.ServerSelector;
 import org.geysermc.floodgate.api.FloodgateApi;
 
@@ -56,6 +57,8 @@ public class PlayerServerEventHandler {
 
     @Subscribe
     public void onServerPostConnect(ServerPostConnectEvent event) {
-        ServerSelector.openGui(event.getPlayer());
+        if (PlayerUtil.isPlayerInLobby(event.getPlayer())) {
+            ServerSelector.openGui(event.getPlayer());
+        }
     }
 }

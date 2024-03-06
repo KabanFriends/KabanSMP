@@ -8,6 +8,7 @@ import com.velocitypowered.api.event.proxy.ProxyInitializeEvent;
 import com.velocitypowered.api.plugin.Dependency;
 import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.proxy.ProxyServer;
+import dev.simplix.protocolize.api.Protocolize;
 import io.github.kabanfriends.kabansmp.networking.config.ProxyConfig;
 import io.github.kabanfriends.kabansmp.networking.packet.RedisPacketHandler;
 import io.github.kabanfriends.kabansmp.networking.recipient.Recipients;
@@ -16,7 +17,10 @@ import io.github.kabanfriends.kabansmp.velocity.command.TestCommand;
 import io.github.kabanfriends.kabansmp.velocity.config.LanguageConfig;
 import io.github.kabanfriends.kabansmp.velocity.event.PlayerBedrockEventHandler;
 import io.github.kabanfriends.kabansmp.velocity.event.PlayerServerEventHandler;
+import io.github.kabanfriends.kabansmp.velocity.event.packet.LeftClickPacketListener;
+import io.github.kabanfriends.kabansmp.velocity.event.packet.RightClickPacketListener;
 import io.github.kabanfriends.kabansmp.velocity.networking.ProxyPacketListener;
+import io.github.kabanfriends.kabansmp.velocity.packet.CustomPacketRegistry;
 import org.geysermc.geyser.api.GeyserApi;
 import org.slf4j.Logger;
 
@@ -63,6 +67,11 @@ public class KabanSMPVelocity {
 
         // Init Geyser related stuff
         GeyserApi.api().eventBus().register(new PlayerBedrockEventHandler(), KabanSMPVelocity.class);
+
+        // Register Protocolize packet listener
+        CustomPacketRegistry.registerPackets(Protocolize.protocolRegistration());
+        Protocolize.listenerProvider().registerListener(new RightClickPacketListener());
+        Protocolize.listenerProvider().registerListener(new LeftClickPacketListener());
     }
 
     private void registerCommand(String name, InvocableCommand command, String... aliases) {

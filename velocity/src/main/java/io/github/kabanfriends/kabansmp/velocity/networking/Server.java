@@ -5,8 +5,8 @@ import io.github.kabanfriends.kabansmp.velocity.text.formatting.ServerColors;
 import net.kyori.adventure.text.format.TextColor;
 
 public enum Server {
-    SURVIVAL("survival", ItemType.GRASS_BLOCK, ServerColors.GREEN_LIGHT, "", 1),
-    CREATIVE("creative", ItemType.BRICKS, ServerColors.GOLD_LIGHT, "", 3),
+    SURVIVAL("survival", ItemType.GRASS_BLOCK, ServerColors.GREEN_LIGHT, "https://i.imgur.com/GBmGxTO.png", 1),
+    CREATIVE("creative", ItemType.BRICKS, ServerColors.GOLD_LIGHT, "https://i.imgur.com/Iw79N0C.png", 3),
     ;
 
     private final String id;

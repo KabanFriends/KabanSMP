@@ -7,6 +7,7 @@ import net.kyori.adventure.text.JoinConfiguration;
 import net.kyori.adventure.text.TranslatableComponent;
 import net.kyori.adventure.text.TranslationArgument;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
+import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -14,10 +15,6 @@ import java.util.List;
 import java.util.Objects;
 
 public class Components {
-
-    private static final LegacyComponentSerializer LEGACY_NO_HEX = LegacyComponentSerializer.builder()
-            .character(LegacyComponentSerializer.SECTION_CHAR)
-            .build();
 
     public static Component of(Component... components) {
         return Component.text().append(components).build();
@@ -69,7 +66,7 @@ public class Components {
         return LegacyComponentSerializer.legacySection().serializeOrNull(legacy);
     }
 
-    public static String legacyWithoutHex(Component legacy) {
-        return LEGACY_NO_HEX.serializeOrNull(legacy);
+    public static String plain(Component component) {
+        return PlainTextComponentSerializer.plainText().serialize(component);
     }
 }

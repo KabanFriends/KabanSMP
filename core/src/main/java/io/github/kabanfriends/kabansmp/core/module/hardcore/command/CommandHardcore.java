@@ -99,7 +99,7 @@ public class CommandHardcore implements SMPCommand {
     }
 
     private static String translateForm(String key, String locale) {
-        return Components.legacyWithoutHex(GlobalTranslator.translator().translate(Components.translatable(key), LocaleUtils.toLocale(locale)));
+        return Components.plain(GlobalTranslator.translator().translate(Components.translatable(key), LocaleUtils.toLocale(locale)));
     }
 
     private static void acceptPrompt(Player player) {

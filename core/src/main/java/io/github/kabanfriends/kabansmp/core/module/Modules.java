@@ -11,6 +11,7 @@ import io.github.kabanfriends.kabansmp.core.module.home.HomeModule;
 import io.github.kabanfriends.kabansmp.core.module.join.JoinModule;
 import io.github.kabanfriends.kabansmp.core.module.motd.MotdModule;
 import io.github.kabanfriends.kabansmp.core.module.pvp.PVPModule;
+import io.github.kabanfriends.kabansmp.core.module.status.StatusModule;
 import io.github.kabanfriends.kabansmp.core.module.tablist.TablistModule;
 import io.github.kabanfriends.kabansmp.core.module.test.TestModule;
 import org.bukkit.command.Command;
@@ -75,6 +76,7 @@ public class Modules {
             case "tablist" -> new TablistModule();
             case "hardcore" -> new HardcoreModule();
             case "collision" -> new CollisionModule();
+            case "status" -> new StatusModule();
             default -> null;
         };
     }

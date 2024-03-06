@@ -1,9 +1,6 @@
 package io.github.kabanfriends.kabansmp.networking.packet;
 
-import io.github.kabanfriends.kabansmp.networking.packet.impl.PlayerChangeServerPacket;
-import io.github.kabanfriends.kabansmp.networking.packet.impl.PlayerJoinPacket;
-import io.github.kabanfriends.kabansmp.networking.packet.impl.PlayerQuitPacket;
-import io.github.kabanfriends.kabansmp.networking.packet.impl.TestPacket;
+import io.github.kabanfriends.kabansmp.networking.packet.impl.*;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 
@@ -23,6 +20,7 @@ public class PacketRegistry {
         register(PlayerJoinPacket.class, PlayerJoinPacket::new);
         register(PlayerQuitPacket.class, PlayerQuitPacket::new);
         register(PlayerChangeServerPacket.class, PlayerChangeServerPacket::new);
+        register(ServerStatusPacket.class, ServerStatusPacket::new);
     }
 
     private static <T extends Packet> void register(Class<T> clazz, Function<PacketBuffer, T> deserializer) {

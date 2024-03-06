@@ -18,6 +18,7 @@ dependencies {
     implementation("dev.simplix:protocolize-api:2.3.3")
     implementation("org.geysermc.geyser:api:2.2.1-SNAPSHOT")
     implementation("org.geysermc.floodgate:api:2.2.1-SNAPSHOT")
+    implementation("io.netty:netty-buffer:4.1.107.Final")
 
     shadow(project(":translation"))
     shadow(project(":networking"))
