@@ -23,7 +23,7 @@ public class MixinServerGamePacketListenerImpl {
     public ServerPlayer player;
 
     @Redirect(method = "handleChatSessionUpdate", at = @At(value = "INVOKE", target = "Ljava/util/Objects;equals(Ljava/lang/Object;Ljava/lang/Object;)Z"))
-    public boolean onPublicKeyCompare(Object a, Object b) {
+    public boolean overridePublicKeyComparison(Object a, Object b) {
         // Player is allowed to update chat session with the same public key
         if (ChatMixinAPI.SESSION_AWAITING_PLAYERS.contains(player.getBukkitEntity())) {
             ChatMixinAPI.SESSION_AWAITING_PLAYERS.remove(player.getBukkitEntity());
