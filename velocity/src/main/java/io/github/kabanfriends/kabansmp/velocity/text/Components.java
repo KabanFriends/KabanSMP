@@ -1,17 +1,13 @@
-package io.github.kabanfriends.kabansmp.core.text;
+package io.github.kabanfriends.kabansmp.velocity.text;
 
-import io.github.kabanfriends.kabansmp.core.text.formatting.Format;
-import io.papermc.paper.adventure.PaperAdventure;
+import io.github.kabanfriends.kabansmp.translation.language.LanguageTranslator;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.JoinConfiguration;
 import net.kyori.adventure.text.TranslatableComponent;
 import net.kyori.adventure.text.TranslationArgument;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class Components {
 
@@ -45,12 +41,8 @@ public class Components {
         return Component.translatable(key, argumentList);
     }
 
-    public static Component formatted(Format format, Component component) {
-        return format.apply(component);
-    }
-
-    public static Component formatted(Format format, String key, Object... objects) {
-        return format.apply(translatable(key, objects));
+    public static Component translate(Component component, Locale locale) {
+        return LanguageTranslator.recursivelyTranslate(component, locale);
     }
 
     public static Component newlined(Collection<Component> components) {

@@ -2,7 +2,7 @@ plugins {
     id("io.papermc.paperweight.userdev")
 }
 
-val subprojectsToBundle = arrayOf("translation")
+val subprojectsToBundle = arrayOf("translation", "networking")
 
 val minecraftVersion: String by rootProject
 val floodgateVersion: String by rootProject
@@ -31,6 +31,10 @@ dependencies {
 }
 
 tasks {
+    compileJava {
+        dependsOn(":networking:build")
+    }
+
     assemble {
         dependsOn(reobfJar)
     }

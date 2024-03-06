@@ -1,4 +1,4 @@
-package io.github.kabanfriends.kabansmp.core.text.formatting;
+package io.github.kabanfriends.kabansmp.velocity.text.formatting;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
@@ -9,21 +9,6 @@ public enum Format {
     GENERIC_NOTIFY("◆", ServerColors.SKY, ServerColors.AQUA_LIGHT_3),
     GENERIC_SUCCESS("◆", ServerColors.LIME, ServerColors.GREEN_LIGHT_3),
     GENERIC_FAIL("◆", ServerColors.RED, ServerColors.RED_LIGHT_3),
-
-    JOIN_MESSAGE("»", ServerColors.LIME, ServerColors.GREEN_LIGHT_3),
-    QUIT_MESSAGE("«", ServerColors.RED, ServerColors.RED_LIGHT_3),
-    CHANGE_MESSAGE("→", ServerColors.SKY, ServerColors.AQUA_LIGHT_3),
-
-    PVP_ENABLED("\uD83D\uDDE1", ServerColors.LIME, ServerColors.GREEN_LIGHT_3),
-    PVP_DISABLED("\uD83D\uDDE1", ServerColors.RED, ServerColors.RED_LIGHT_3),
-
-    HOME_NOTIFY("⌂", ServerColors.SKY, ServerColors.AQUA_LIGHT_3),
-    HOME_SUCCESS("⌂", ServerColors.LIME, ServerColors.GREEN_LIGHT_3),
-    HOME_FAIL("⌂", ServerColors.RED, ServerColors.RED_LIGHT_3),
-
-    HARDCORE_NOTIFY("❣", ServerColors.SKY, ServerColors.AQUA_LIGHT_3),
-    HARDCORE_SUCCESS("❣", ServerColors.LIME, ServerColors.GREEN_LIGHT_3),
-    HARDCORE_FAIL("❣", ServerColors.RED, ServerColors.RED_LIGHT_3),
     ;
 
     private final Component prefix;
