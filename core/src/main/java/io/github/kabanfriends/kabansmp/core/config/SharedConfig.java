@@ -31,10 +31,6 @@ public class SharedConfig {
 
             if (json != null) {
                 MixinConfigAPI.unloadPack = json.getAsJsonPrimitive("unloadPack").getAsBoolean();
-                boolean creativePatches = json.getAsJsonPrimitive("creativePatches").getAsBoolean();
-                if (creativePatches) {
-                    MixinConfigAPI.filterBlockEntities = true;
-                }
                 websiteUrl = json.getAsJsonPrimitive("websiteUrl").getAsString();
             }
         }
