@@ -5,6 +5,7 @@ import io.github.kabanfriends.kabansmp.core.config.ModuleConfig;
 import io.github.kabanfriends.kabansmp.core.module.autosave.AutosaveModule;
 import io.github.kabanfriends.kabansmp.core.module.base.BaseModule;
 import io.github.kabanfriends.kabansmp.core.module.collision.CollisionModule;
+import io.github.kabanfriends.kabansmp.core.module.creative.CreativeModule;
 import io.github.kabanfriends.kabansmp.core.module.damage.DamageModule;
 import io.github.kabanfriends.kabansmp.core.module.hardcore.HardcoreModule;
 import io.github.kabanfriends.kabansmp.core.module.home.HomeModule;
@@ -75,6 +76,7 @@ public class Modules {
             case "motd" -> new MotdModule();
             case "tablist" -> new TablistModule();
             case "hardcore" -> new HardcoreModule();
+            case "creative" -> new CreativeModule();
             case "collision" -> new CollisionModule();
             case "status" -> new StatusModule();
             default -> null;

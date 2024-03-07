@@ -4,7 +4,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
 import io.github.kabanfriends.kabansmp.core.KabanSMPPlugin;
-import io.github.kabanfriends.kabansmp.injector.api.PackUnloadConfig;
+import io.github.kabanfriends.kabansmp.injector.api.MixinConfigAPI;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -30,7 +30,11 @@ public class SharedConfig {
             }
 
             if (json != null) {
-                PackUnloadConfig.unloadPack = json.getAsJsonPrimitive("unloadPack").getAsBoolean();
+                MixinConfigAPI.unloadPack = json.getAsJsonPrimitive("unloadPack").getAsBoolean();
+                boolean creativePatches = json.getAsJsonPrimitive("creativePatches").getAsBoolean();
+                if (creativePatches) {
+                    MixinConfigAPI.filterBlockEntities = true;
+                }
                 websiteUrl = json.getAsJsonPrimitive("websiteUrl").getAsString();
             }
         }

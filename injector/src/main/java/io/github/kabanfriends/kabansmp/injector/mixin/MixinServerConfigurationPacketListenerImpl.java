@@ -1,6 +1,6 @@
 package io.github.kabanfriends.kabansmp.injector.mixin;
 
-import io.github.kabanfriends.kabansmp.injector.api.PackUnloadConfig;
+import io.github.kabanfriends.kabansmp.injector.api.MixinConfigAPI;
 import net.minecraft.network.protocol.common.ClientboundResourcePackPopPacket;
 import net.minecraft.server.network.ServerConfigurationPacketListenerImpl;
 import org.spongepowered.asm.mixin.Mixin;
@@ -15,7 +15,7 @@ public class MixinServerConfigurationPacketListenerImpl {
 
     @Inject(method = "startConfiguration", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/network/ServerConfigurationPacketListenerImpl;addOptionalTasks()V"))
     public void popPackOnConfiguration(CallbackInfo ci) {
-        if (PackUnloadConfig.unloadPack) {
+        if (MixinConfigAPI.unloadPack) {
             ((ServerConfigurationPacketListenerImpl)(Object)this).send(new ClientboundResourcePackPopPacket(Optional.empty()));
         }
     }
