@@ -6,7 +6,6 @@ import io.github.kabanfriends.kabansmp.networking.packet.RedisPacketHandler;
 import io.github.kabanfriends.kabansmp.networking.packet.impl.ServerStatusPacket;
 import io.github.kabanfriends.kabansmp.networking.recipient.Recipients;
 import io.github.kabanfriends.kabansmp.networking.recipient.ServerManager;
-import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class StatusModule implements Module {
@@ -16,7 +15,7 @@ public class StatusModule implements Module {
         new BukkitRunnable() {
             @Override
             public void run() {
-                RedisPacketHandler.sendPacket(new ServerStatusPacket(ServerManager.getCurrentServer().getName(), Bukkit.getMaxPlayers()), Recipients.PROXY);
+                RedisPacketHandler.sendPacket(new ServerStatusPacket(ServerManager.getCurrentServer().getName()), Recipients.PROXY);
             }
         }.runTaskTimerAsynchronously(KabanSMPPlugin.getInstance(), 0L, ServerStatusPacket.HEARTBEAT_INTERVAL_SECONDS);
     }

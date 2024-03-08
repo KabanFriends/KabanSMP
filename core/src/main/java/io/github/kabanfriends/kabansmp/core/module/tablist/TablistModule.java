@@ -5,6 +5,7 @@ import io.github.kabanfriends.kabansmp.core.module.Module;
 import io.github.kabanfriends.kabansmp.core.text.Components;
 import io.github.kabanfriends.kabansmp.core.KabanSMPPlugin;
 import io.github.kabanfriends.kabansmp.core.text.formatting.ServerColors;
+import io.github.kabanfriends.kabansmp.networking.config.ProxyConfig;
 import net.kyori.adventure.text.Component;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
@@ -23,6 +24,9 @@ public class TablistModule implements Module {
 
     private static Economy econ;
     private static Chat chat;
+
+    public static int proxyPlayers = 0;
+    public static int proxyMaxPlayers = 0;
 
     @Override
     public void load() {
@@ -58,7 +62,7 @@ public class TablistModule implements Module {
             header.add(Component.empty());
         }
         header.add(Components.translatable("tablist.header.players",
-                Component.text(players + "/" + Bukkit.getMaxPlayers()).color(ServerColors.WHITE)
+                Component.text((ProxyConfig.useProxy ? proxyPlayers : players) + "/" + (ProxyConfig.useProxy ? proxyMaxPlayers : Bukkit.getMaxPlayers())).color(ServerColors.WHITE)
         ).color(ServerColors.GRAY_LIGHT));
         if (TablistConfig.showMoney) {
             header.add(Components.translatable("tablist.footer.balance",

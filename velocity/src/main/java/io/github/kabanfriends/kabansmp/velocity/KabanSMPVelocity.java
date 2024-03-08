@@ -15,6 +15,7 @@ import io.github.kabanfriends.kabansmp.networking.recipient.Recipients;
 import io.github.kabanfriends.kabansmp.velocity.command.ServerCommand;
 import io.github.kabanfriends.kabansmp.velocity.command.TestCommand;
 import io.github.kabanfriends.kabansmp.velocity.config.LanguageConfig;
+import io.github.kabanfriends.kabansmp.velocity.config.SharedConfig;
 import io.github.kabanfriends.kabansmp.velocity.event.PlayerBedrockEventHandler;
 import io.github.kabanfriends.kabansmp.velocity.event.PlayerServerEventHandler;
 import io.github.kabanfriends.kabansmp.velocity.event.packet.LeftClickPacketListener;
@@ -55,6 +56,7 @@ public class KabanSMPVelocity {
     @Subscribe
     public void onProxyInitialization(ProxyInitializeEvent event) {
         // Load config
+        SharedConfig.load();
         LanguageConfig.load();
         ProxyConfig.load();
 

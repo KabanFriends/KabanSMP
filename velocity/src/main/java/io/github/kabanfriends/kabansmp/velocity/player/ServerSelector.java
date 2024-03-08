@@ -18,7 +18,7 @@ import io.github.kabanfriends.kabansmp.velocity.KabanSMPVelocity;
 import io.github.kabanfriends.kabansmp.velocity.config.LanguageConfig;
 import io.github.kabanfriends.kabansmp.velocity.networking.Server;
 import io.github.kabanfriends.kabansmp.velocity.networking.ServerStatus;
-import io.github.kabanfriends.kabansmp.velocity.networking.ServerStatusManager;
+import io.github.kabanfriends.kabansmp.velocity.networking.StatusManager;
 import io.github.kabanfriends.kabansmp.velocity.text.Components;
 import io.github.kabanfriends.kabansmp.velocity.text.formatting.ServerColors;
 import net.kyori.adventure.text.Component;
@@ -63,7 +63,7 @@ public class ServerSelector {
                 continue;
             }
             RegisteredServer rs = optional.get();
-            ServerStatus status = ServerStatusManager.getServerStatus(server.getId());
+            ServerStatus status = StatusManager.getServerStatus(server.getId());
 
             ItemStack item;
 
@@ -75,7 +75,7 @@ public class ServerSelector {
                         , locale)));
                 item.lore(List.of(
                         ChatElement.of(Components.translate(
-                                Components.translatable("selector.form.players", Component.text(rs.getPlayersConnected().size() + "/" + status.maxPlayers()).style(Style.style(ServerColors.WHITE, TextDecoration.ITALIC.withState(false)))).style(Style.style(ServerColors.GRAY_LIGHT, TextDecoration.ITALIC.withState(false)))
+                                Components.translatable("selector.form.players", Component.text(rs.getPlayersConnected().size()).style(Style.style(ServerColors.WHITE, TextDecoration.ITALIC.withState(false)))).style(Style.style(ServerColors.GRAY_LIGHT, TextDecoration.ITALIC.withState(false)))
                                 , locale)),
                         ChatElement.of(Component.empty()),
                         ChatElement.of(Components.translate(
@@ -115,7 +115,7 @@ public class ServerSelector {
                 for (Server server : Server.values()) {
                     if (click.slot() == server.getSlot()) {
                         ProtocolizePlayer pp = Protocolize.playerProvider().player(player.getUniqueId());
-                        ServerStatus status = ServerStatusManager.getServerStatus(server.getId());
+                        ServerStatus status = StatusManager.getServerStatus(server.getId());
 
                         if (status != null) {
                             pp.playSound(Sound.BLOCK_TRIPWIRE_CLICK_ON, SoundCategory.MASTER, 1.0f, 1.0f);
@@ -146,7 +146,7 @@ public class ServerSelector {
                 .title(translate("selector.form.title", locale))
                 .validResultHandler(response -> {
                     Server server = Server.values()[response.clickedButtonId()];
-                    ServerStatus status = ServerStatusManager.getServerStatus(server.getId());
+                    ServerStatus status = StatusManager.getServerStatus(server.getId());
 
                     if (status != null) {
                         acceptPrompt(player, server);
@@ -171,10 +171,10 @@ public class ServerSelector {
                 continue;
             }
             RegisteredServer rs = optional.get();
-            ServerStatus status = ServerStatusManager.getServerStatus(server.getId());
+            ServerStatus status = StatusManager.getServerStatus(server.getId());
 
             if (status != null) {
-                form.button(translate("all.proxy.server.name." + server.getId(), locale) + " (" + rs.getPlayersConnected().size() + "/" + status.maxPlayers() + ")", FormImage.Type.URL, server.getImageUrl());
+                form.button(translate("all.proxy.server.name." + server.getId(), locale) + " (" + translate("all.players", locale, rs.getPlayersConnected().size()) + ")", FormImage.Type.URL, server.getImageUrl());
             } else {
                 form.button(translate("all.proxy.server.name." + server.getId(), locale) + " (" + translate("selector.form.unavailable.short", locale) + ")", FormImage.Type.URL, "https://i.imgur.com/uB1yNl3.png");
             }
@@ -183,8 +183,8 @@ public class ServerSelector {
         fplayer.sendForm(form.build());
     }
 
-    private static String translate(String key, Locale locale) {
-        return Components.plain(Components.translate(Components.translatable(key), locale));
+    private static String translate(String key, Locale locale, Object... values) {
+        return Components.plain(Components.translate(Components.translatable(key, values), locale));
     }
 
     private static void acceptPrompt(Player player, Server target) {

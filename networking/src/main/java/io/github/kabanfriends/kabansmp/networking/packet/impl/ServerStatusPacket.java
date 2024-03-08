@@ -9,21 +9,18 @@ public class ServerStatusPacket extends Packet {
     public static final int HEARTBEAT_INTERVAL_SECONDS = 2;
 
     private final String server;
-    private final int maxPlayers;
 
-    public ServerStatusPacket(String server, int maxPlayers) {
+    public ServerStatusPacket(String server) {
         this.server = server;
-        this.maxPlayers = maxPlayers;
     }
 
     public ServerStatusPacket(PacketBuffer buffer) {
-        this(buffer.readString(), buffer.readVarInt());
+        this(buffer.readString());
     }
 
     @Override
     public void write(PacketBuffer buffer) {
         buffer.writeString(server);
-        buffer.writeVarInt(maxPlayers);
     }
 
     @Override
@@ -33,9 +30,5 @@ public class ServerStatusPacket extends Packet {
 
     public String getServer() {
         return server;
-    }
-
-    public int getMaxPlayers() {
-        return maxPlayers;
     }
 }

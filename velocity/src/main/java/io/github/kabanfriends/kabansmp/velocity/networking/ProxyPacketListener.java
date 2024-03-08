@@ -14,6 +14,6 @@ public class ProxyPacketListener implements PacketListener {
 
     @Override
     public void handleServerStatusPacket(ServerStatusPacket packet) {
-        ServerStatusManager.updateServerStatus(packet.getServer(), new ServerStatus(System.currentTimeMillis(), packet.getMaxPlayers()));
+        StatusManager.updateServerStatus(packet.getServer(), new ServerStatus(System.currentTimeMillis()));
     }
 }

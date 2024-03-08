@@ -18,4 +18,7 @@ public interface PacketListener {
 
     default void handleServerStatusPacket(ServerStatusPacket packet) {
     }
+
+    default void handleProxyStatusPacket(ProxyStatusPacket packet) {
+    }
 }

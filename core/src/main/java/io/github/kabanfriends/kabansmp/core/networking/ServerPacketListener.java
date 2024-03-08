@@ -1,14 +1,12 @@
 package io.github.kabanfriends.kabansmp.core.networking;
 
 import io.github.kabanfriends.kabansmp.core.KabanSMPPlugin;
+import io.github.kabanfriends.kabansmp.core.module.tablist.TablistModule;
 import io.github.kabanfriends.kabansmp.core.text.Components;
 import io.github.kabanfriends.kabansmp.core.text.formatting.Format;
 import io.github.kabanfriends.kabansmp.core.text.formatting.ServerColors;
 import io.github.kabanfriends.kabansmp.networking.packet.PacketListener;
-import io.github.kabanfriends.kabansmp.networking.packet.impl.PlayerChangeServerPacket;
-import io.github.kabanfriends.kabansmp.networking.packet.impl.PlayerJoinPacket;
-import io.github.kabanfriends.kabansmp.networking.packet.impl.PlayerQuitPacket;
-import io.github.kabanfriends.kabansmp.networking.packet.impl.TestPacket;
+import io.github.kabanfriends.kabansmp.networking.packet.impl.*;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -56,5 +54,11 @@ public class ServerPacketListener implements PacketListener {
                     Components.translatable("all.proxy.server.name." + packet.getTargetServer()).colorIfAbsent(ServerColors.MUSTARD)
             ));
         }
+    }
+
+    @Override
+    public void handleProxyStatusPacket(ProxyStatusPacket packet) {
+        TablistModule.proxyPlayers = packet.getPlayerCount();
+        TablistModule.proxyMaxPlayers = packet.getMaxPlayerCount();
     }
 }
