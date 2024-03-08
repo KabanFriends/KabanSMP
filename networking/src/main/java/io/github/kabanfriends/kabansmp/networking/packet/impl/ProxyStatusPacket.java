@@ -15,13 +15,13 @@ public class ProxyStatusPacket extends Packet {
     }
 
     public ProxyStatusPacket(PacketBuffer buffer) {
-        this(buffer.readInt(), buffer.readInt());
+        this(buffer.readVarInt(), buffer.readVarInt());
     }
 
     @Override
     public void write(PacketBuffer buffer) {
-        buffer.writeInt(playerCount);
-        buffer.writeInt(maxPlayerCount);
+        buffer.writeVarInt(playerCount);
+        buffer.writeVarInt(maxPlayerCount);
     }
 
     @Override

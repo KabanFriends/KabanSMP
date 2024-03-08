@@ -40,6 +40,7 @@ public class StatusManager {
                 count += server.getPlayersConnected().size();
             }
         }
+        KabanSMPVelocity.getInstance().getLogger().info("Proxy status: " + count + "/" + SharedConfig.maxPlayers + " players");
         RedisPacketHandler.sendToAllServers(new ProxyStatusPacket(count, SharedConfig.maxPlayers));
     }
 }

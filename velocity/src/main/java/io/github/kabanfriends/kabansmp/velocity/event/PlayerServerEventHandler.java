@@ -2,6 +2,7 @@ package io.github.kabanfriends.kabansmp.velocity.event;
 
 import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.event.connection.DisconnectEvent;
+import com.velocitypowered.api.event.connection.LoginEvent;
 import com.velocitypowered.api.event.connection.PreLoginEvent;
 import com.velocitypowered.api.event.player.ServerConnectedEvent;
 import com.velocitypowered.api.event.player.ServerPostConnectEvent;
@@ -32,8 +33,11 @@ public class PlayerServerEventHandler {
             event.setResult(PreLoginEvent.PreLoginComponentResult.denied(
                     Components.translate(Components.translatable("server.disconnect.playerLimit"), LanguageConfig.defaultLocale)
             ));
-            return;
         }
+    }
+
+    @Subscribe
+    public void onLogin(LoginEvent event) {
         StatusManager.sendProxyStatus();
     }
 
@@ -49,8 +53,6 @@ public class PlayerServerEventHandler {
     @Subscribe
     public void onServerConnect(ServerConnectedEvent event) {
         String target = event.getServer().getServerInfo().getName();
-
-        StatusManager.sendProxyStatus();
 
         if (!target.equals("lobby")) {
             if (!LAST_SERVERS.containsKey(event.getPlayer())) {
@@ -80,5 +82,6 @@ public class PlayerServerEventHandler {
         if (PlayerUtil.isPlayerInLobby(event.getPlayer())) {
             ServerSelector.openGui(event.getPlayer());
         }
+        StatusManager.sendProxyStatus();
     }
 }
