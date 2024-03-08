@@ -17,6 +17,7 @@ import io.github.kabanfriends.kabansmp.velocity.command.TestCommand;
 import io.github.kabanfriends.kabansmp.velocity.config.LanguageConfig;
 import io.github.kabanfriends.kabansmp.velocity.config.SharedConfig;
 import io.github.kabanfriends.kabansmp.velocity.event.PlayerBedrockEventHandler;
+import io.github.kabanfriends.kabansmp.velocity.event.PlayerChatEventHandler;
 import io.github.kabanfriends.kabansmp.velocity.event.PlayerServerEventHandler;
 import io.github.kabanfriends.kabansmp.velocity.event.packet.LeftClickPacketListener;
 import io.github.kabanfriends.kabansmp.velocity.event.packet.RightClickPacketListener;
@@ -66,6 +67,7 @@ public class KabanSMPVelocity {
 
         // Register event listeners
         registerListener(new PlayerServerEventHandler());
+        registerListener(new PlayerChatEventHandler());
 
         // Init Geyser related stuff
         GeyserApi.api().eventBus().register(new PlayerBedrockEventHandler(), KabanSMPVelocity.class);
