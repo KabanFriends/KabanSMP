@@ -1,6 +1,7 @@
 package io.github.kabanfriends.kabansmp.velocity.networking;
 
 import com.velocitypowered.api.proxy.ProxyServer;
+import com.velocitypowered.api.proxy.server.RegisteredServer;
 import io.github.kabanfriends.kabansmp.networking.packet.RedisPacketHandler;
 import io.github.kabanfriends.kabansmp.networking.packet.impl.ProxyStatusPacket;
 import io.github.kabanfriends.kabansmp.networking.packet.impl.ServerStatusPacket;
@@ -32,7 +33,13 @@ public class StatusManager {
     }
 
     public static void sendProxyStatus() {
-        ProxyServer server = KabanSMPVelocity.getInstance().getServer();
-        RedisPacketHandler.sendToAllServers(new ProxyStatusPacket(server.getPlayerCount(), SharedConfig.maxPlayers));
+        ProxyServer proxy = KabanSMPVelocity.getInstance().getServer();
+        int count = 0;
+        for (RegisteredServer server : proxy.getAllServers()) {
+            if (!server.getServerInfo().getName().equals("lobby")) {
+                count += server.getPlayersConnected().size();
+            }
+        }
+        RedisPacketHandler.sendToAllServers(new ProxyStatusPacket(count, SharedConfig.maxPlayers));
     }
 }

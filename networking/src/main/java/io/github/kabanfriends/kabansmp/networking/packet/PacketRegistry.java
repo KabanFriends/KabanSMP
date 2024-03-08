@@ -21,6 +21,7 @@ public class PacketRegistry {
         register(PlayerQuitPacket.class, PlayerQuitPacket::new);
         register(PlayerChangeServerPacket.class, PlayerChangeServerPacket::new);
         register(ServerStatusPacket.class, ServerStatusPacket::new);
+        register(ProxyStatusPacket.class, ProxyStatusPacket::new);
     }
 
     private static <T extends Packet> void register(Class<T> clazz, Function<PacketBuffer, T> deserializer) {
