@@ -12,6 +12,7 @@ import io.github.kabanfriends.kabansmp.core.module.home.HomeModule;
 import io.github.kabanfriends.kabansmp.core.module.join.JoinModule;
 import io.github.kabanfriends.kabansmp.core.module.motd.MotdModule;
 import io.github.kabanfriends.kabansmp.core.module.pvp.PVPModule;
+import io.github.kabanfriends.kabansmp.core.module.spawn.SpawnModule;
 import io.github.kabanfriends.kabansmp.core.module.status.StatusModule;
 import io.github.kabanfriends.kabansmp.core.module.tablist.TablistModule;
 import io.github.kabanfriends.kabansmp.core.module.test.TestModule;
@@ -76,6 +77,7 @@ public class Modules {
             case "motd" -> new MotdModule();
             case "tablist" -> new TablistModule();
             case "hardcore" -> new HardcoreModule();
+            case "spawn" -> new SpawnModule();
             case "creative" -> new CreativeModule();
             case "collision" -> new CollisionModule();
             case "status" -> new StatusModule();

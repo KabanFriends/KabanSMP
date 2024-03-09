@@ -24,6 +24,8 @@ public enum Format {
     HARDCORE_NOTIFY("❣", ServerColors.SKY, ServerColors.AQUA_LIGHT_3),
     HARDCORE_SUCCESS("❣", ServerColors.LIME, ServerColors.GREEN_LIGHT_3),
     HARDCORE_FAIL("❣", ServerColors.RED, ServerColors.RED_LIGHT_3),
+
+    SPAWN_SUCCESS("⭐", ServerColors.LIME, ServerColors.GREEN_LIGHT_3),
     ;
 
     private final Component prefix;

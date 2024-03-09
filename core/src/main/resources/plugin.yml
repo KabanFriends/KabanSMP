@@ -27,3 +27,6 @@ commands:
   hardcore:
     description: Enables the hardcore mode
     usage: /hardcore
+  spawn:
+    description: Teleports to the world spawn
+    usage: /spawn
