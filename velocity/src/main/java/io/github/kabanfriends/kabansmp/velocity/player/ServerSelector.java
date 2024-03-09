@@ -71,7 +71,7 @@ public class ServerSelector {
                 item = new ItemStack(server.getMaterial());
 
                 item.displayName(ChatElement.of(Components.translate(
-                        Components.translatable("all.proxy.server.name." + server.getId()).style(Style.style(server.getColor(), TextDecoration.ITALIC.withState(false)))
+                        Components.translatable("all.proxy.server.name." + server.getId()).style(Style.style(server.getColor(), TextDecoration.ITALIC.withState(false), TextDecoration.BOLD))
                         , locale)));
                 item.lore(List.of(
                         ChatElement.of(Components.translate(
