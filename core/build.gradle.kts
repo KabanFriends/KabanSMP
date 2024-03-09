@@ -15,6 +15,7 @@ repositories {
     maven("https://jitpack.io")
     maven("https://repo.opencollab.dev/main/")
     maven("https://repo.dmulloy2.net/repository/public/")
+    maven("https://maven.enginehub.org/repo/")
 }
 
 dependencies {
@@ -28,6 +29,7 @@ dependencies {
         exclude("org.bukkit")
     }
     implementation("com.comphenix.protocol:ProtocolLib:${protocolLibVersion}")
+    implementation("com.sk89q.worldguard:worldguard-bukkit:7.0.9")
 }
 
 tasks {
