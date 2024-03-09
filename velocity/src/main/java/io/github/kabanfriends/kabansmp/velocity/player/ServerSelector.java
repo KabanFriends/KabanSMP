@@ -89,7 +89,7 @@ public class ServerSelector {
                 item = new ItemStack(ItemType.BARRIER);
 
                 item.displayName(ChatElement.of(Components.translate(
-                        Components.translatable("all.proxy.server.name." + server.getId()).style(Style.style(ServerColors.RED_LIGHT_2, TextDecoration.ITALIC.withState(false)))
+                        Components.translatable("all.proxy.server.name." + server.getId()).style(Style.style(ServerColors.RED_LIGHT_2, TextDecoration.ITALIC.withState(false), TextDecoration.BOLD))
                         , locale)));
                 item.lore(List.of(
                         ChatElement.of(Components.translate(
