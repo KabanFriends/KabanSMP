@@ -5,7 +5,7 @@ import net.minecraft.network.protocol.game.ClientboundAnimatePacket;
 import net.minecraft.network.protocol.game.ClientboundEntityEventPacket;
 import net.minecraft.server.level.ServerChunkCache;
 import net.minecraft.world.entity.LivingEntity;
-import org.bukkit.craftbukkit.v1_20_R3.entity.CraftLivingEntity;
+import org.bukkit.craftbukkit.entity.CraftLivingEntity;
 
 public class EntityAPI {
 

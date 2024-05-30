@@ -2,8 +2,8 @@ package io.github.kabanfriends.kabansmp.core.util.api;
 
 import io.github.kabanfriends.kabansmp.injector.api.AccessorMixinAPI;
 import net.minecraft.nbt.CompoundTag;
-import org.bukkit.craftbukkit.v1_20_R3.inventory.CraftMetaEntityTag;
-import org.bukkit.craftbukkit.v1_20_R3.inventory.CraftMetaSpawnEgg;
+import org.bukkit.craftbukkit.inventory.CraftMetaEntityTag;
+import org.bukkit.craftbukkit.inventory.CraftMetaSpawnEgg;
 import org.bukkit.inventory.meta.ItemMeta;
 
 public class ItemAPI {

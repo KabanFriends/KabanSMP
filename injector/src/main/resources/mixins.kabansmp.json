@@ -8,8 +8,6 @@
     "accessor.CraftMetaEntityTagAccessor",
     "accessor.CraftMetaSpawnEggAccessor",
     "accessor.TrialSpawnerAccessor",
-    "MixinLevelChunk",
-    "MixinServerConfigurationPacketListenerImpl",
     "MixinServerGamePacketListenerImpl"
   ]
 }

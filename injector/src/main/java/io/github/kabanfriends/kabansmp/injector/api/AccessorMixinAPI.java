@@ -3,8 +3,8 @@ package io.github.kabanfriends.kabansmp.injector.api;
 import io.github.kabanfriends.kabansmp.injector.mixin.accessor.CraftMetaEntityTagAccessor;
 import io.github.kabanfriends.kabansmp.injector.mixin.accessor.CraftMetaSpawnEggAccessor;
 import net.minecraft.nbt.CompoundTag;
-import org.bukkit.craftbukkit.v1_20_R3.inventory.CraftMetaEntityTag;
-import org.bukkit.craftbukkit.v1_20_R3.inventory.CraftMetaSpawnEgg;
+import org.bukkit.craftbukkit.inventory.CraftMetaEntityTag;
+import org.bukkit.craftbukkit.inventory.CraftMetaSpawnEgg;
 
 public class AccessorMixinAPI {
 

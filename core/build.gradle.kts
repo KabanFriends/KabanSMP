@@ -2,7 +2,7 @@ plugins {
     id("io.papermc.paperweight.userdev")
 }
 
-val subprojectsToBundle = arrayOf("translation", "networking")
+val subprojectsToBundle = arrayOf("translation")
 
 val minecraftVersion: String by rootProject
 val floodgateVersion: String by rootProject
@@ -23,7 +23,6 @@ dependencies {
 
     implementation(project(":translation"))
     implementation(project(":injector"))
-    implementation(project(":networking"))
     implementation("org.geysermc.floodgate:api:${floodgateVersion}")
     implementation("com.github.MilkBowl:VaultAPI:${vaultVersion}") {
         exclude("org.bukkit")
@@ -33,10 +32,6 @@ dependencies {
 }
 
 tasks {
-    compileJava {
-        dependsOn(":networking:build")
-    }
-
     assemble {
         dependsOn(reobfJar)
     }

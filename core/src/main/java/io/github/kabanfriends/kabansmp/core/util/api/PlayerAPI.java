@@ -10,8 +10,8 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.players.PlayerList;
 import org.bukkit.GameRule;
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_20_R3.CraftWorld;
-import org.bukkit.craftbukkit.v1_20_R3.entity.CraftPlayer;
+import org.bukkit.craftbukkit.CraftWorld;
+import org.bukkit.craftbukkit.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
 import java.util.Collections;
@@ -70,7 +70,7 @@ public class PlayerAPI {
         // Resend their XP and effects because the respawn packet resets it
         sendPacket(new ClientboundSetExperiencePacket(nmsPlayer.experienceProgress, nmsPlayer.totalExperience, nmsPlayer.experienceLevel), player);
         for (net.minecraft.world.effect.MobEffectInstance mobEffect : nmsPlayer.getActiveEffects()) {
-            sendPacket(new net.minecraft.network.protocol.game.ClientboundUpdateMobEffectPacket(nmsPlayer.getId(), mobEffect), player);
+            sendPacket(new net.minecraft.network.protocol.game.ClientboundUpdateMobEffectPacket(nmsPlayer.getId(), mobEffect, false), player);
         }
 
         sendEntity(player, player, (packet) -> {
@@ -101,7 +101,8 @@ public class PlayerAPI {
                 player.getWorld().getGameRuleValue(GameRule.REDUCED_DEBUG_INFO),
                 player.getWorld().getGameRuleValue(GameRule.DO_IMMEDIATE_RESPAWN),
                 player.getWorld().getGameRuleValue(GameRule.DO_LIMITED_CRAFTING),
-                nmsPlayer.createCommonSpawnInfo(level)
+                nmsPlayer.createCommonSpawnInfo(level),
+                nmsPlayer.getServer().enforceSecureProfile()
         );
 
         ChatMixinAPI.allowNextChatSessionUpdate(player);

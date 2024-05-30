@@ -11,7 +11,6 @@ import io.github.kabanfriends.kabansmp.core.player.data.PlayerDataManager;
 import io.github.kabanfriends.kabansmp.core.text.Components;
 import io.github.kabanfriends.kabansmp.core.text.formatting.Format;
 import io.github.kabanfriends.kabansmp.core.text.formatting.ServerColors;
-import io.github.kabanfriends.kabansmp.networking.config.ProxyConfig;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.event.HoverEvent;
@@ -34,17 +33,13 @@ public class JoinEventHandler implements Listener {
 
         PlayerNames.updateDisplayName(player);
 
-        if (ProxyConfig.useProxy) {
-            event.joinMessage(null);
-        } else {
-            boolean isBedrock = FloodgateApi.getInstance().isFloodgatePlayer(player.getUniqueId());
-            event.joinMessage(Components.formatted(
-                    Format.JOIN_MESSAGE,
-                    "join.message.joined",
-                    player.displayName().colorIfAbsent(ServerColors.GREEN_LIGHT),
-                    isBedrock ? Components.translatable("all.minecraft.bedrock") : Components.translatable("all.minecraft.java")
-            ));
-        }
+        boolean isBedrock = FloodgateApi.getInstance().isFloodgatePlayer(player.getUniqueId());
+        event.joinMessage(Components.formatted(
+                Format.JOIN_MESSAGE,
+                "join.message.joined",
+                player.displayName().colorIfAbsent(ServerColors.GREEN_LIGHT),
+                isBedrock ? Components.translatable("all.minecraft.bedrock") : Components.translatable("all.minecraft.java")
+        ));
 
         Bukkit.getScheduler().runTaskLaterAsynchronously(KabanSMPPlugin.getInstance(), () -> {
             if (!player.isOnline()) {
@@ -72,10 +67,6 @@ public class JoinEventHandler implements Listener {
 
         ChatMixinAPI.resetChatSessionUpdate(player);
 
-        if (ProxyConfig.useProxy) {
-            event.quitMessage(null);
-        } else {
-            event.quitMessage(Components.formatted(Format.QUIT_MESSAGE, "join.message.left", player.displayName().colorIfAbsent(ServerColors.RED_LIGHT)));
-        }
+        event.quitMessage(Components.formatted(Format.QUIT_MESSAGE, "join.message.left", player.displayName().colorIfAbsent(ServerColors.RED_LIGHT)));
     }
 }

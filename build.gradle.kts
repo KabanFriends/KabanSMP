@@ -1,6 +1,6 @@
 plugins {
     id("io.github.kabanfriends.build.java") apply false
-    id("io.papermc.paperweight.userdev") version "1.5.11" apply false
+    id("io.papermc.paperweight.userdev") version "1.7.1" apply false
 }
 
 val pluginVersion: String by rootProject
