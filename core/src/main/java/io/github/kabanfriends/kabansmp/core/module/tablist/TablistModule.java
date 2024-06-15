@@ -24,9 +24,6 @@ public class TablistModule implements Module {
     private static Economy econ;
     private static Chat chat;
 
-    public static int proxyPlayers = 0;
-    public static int proxyMaxPlayers = 0;
-
     @Override
     public void load() {
         TablistConfig.load();
