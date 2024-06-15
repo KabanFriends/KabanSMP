@@ -1,9 +1,11 @@
 package io.github.kabanfriends.kabansmp.core.module.home.command;
 
+import io.github.kabanfriends.kabansmp.core.KabanSMPPlugin;
 import io.github.kabanfriends.kabansmp.core.command.SMPCommand;
-import io.github.kabanfriends.kabansmp.core.module.home.Home;
 import io.github.kabanfriends.kabansmp.core.module.home.HomeModule;
 import io.github.kabanfriends.kabansmp.core.player.Teleports;
+import io.github.kabanfriends.kabansmp.core.player.data.PlayerData;
+import io.github.kabanfriends.kabansmp.core.player.data.PlayerDataManager;
 import io.github.kabanfriends.kabansmp.core.text.Components;
 import io.github.kabanfriends.kabansmp.core.text.formatting.Format;
 import io.github.kabanfriends.kabansmp.core.text.formatting.ServerColors;
@@ -38,47 +40,51 @@ public class CommandHome implements SMPCommand {
                 return true;
             }
 
-            Home home = HomeModule.getHome(player.getUniqueId());
-            if (home == null) {
-                player.sendMessage(Components.formatted(
-                        Format.HOME_NOTIFY,
-                        "home.command.home.notSet",
-                        Component.text("/sethome").color(ServerColors.MUSTARD)
-                ));
-                return true;
-            }
+            Bukkit.getScheduler().runTaskAsynchronously(KabanSMPPlugin.getInstance(), () -> {
+                PlayerData data = PlayerDataManager.getPlayerData(player);
+                Location homeLocation = data.getValue(HomeModule.HOME_LOCATION_DATA);
 
-            if (!Teleports.checkAndNotifyTeleport(player)) {
-                return true;
-            }
-
-            // TODO: Move this to a common logic for warp
-            Location homeLocation = home.location().clone().set(
-                    Math.floor(home.location().getX()) + 0.5,
-                    Math.floor(home.location().getY()),
-                    Math.floor(home.location().getZ()) + 0.5
-            );
-
-            COMMAND_USE_TICKS.put(player, Bukkit.getCurrentTick());
-            Location safeLocation = LocationUtil.getSafeDestination(homeLocation);
-            if (safeLocation == null) {
-                player.sendMessage(Components.formatted(
-                        Format.HOME_FAIL,
-                        "home.command.home.notSafe"
-                ));
-                return true;
-            }
-
-            Teleports.teleport(player, safeLocation, false, () -> {
-                player.sendMessage(Components.formatted(Format.HOME_SUCCESS, "home.command.home.success"));
-
-                if (!safeLocation.equals(homeLocation)) {
+                if (homeLocation == null) {
                     player.sendMessage(Components.formatted(
                             Format.HOME_NOTIFY,
-                            "home.command.home.moved",
+                            "home.command.home.notSet",
                             Component.text("/sethome").color(ServerColors.MUSTARD)
                     ));
+                    return;
                 }
+
+                if (!Teleports.checkAndNotifyTeleport(player)) {
+                    return;
+                }
+
+                // TODO: Move this to a common logic for warp
+                homeLocation.set(
+                        Math.floor(homeLocation.getX()) + 0.5,
+                        Math.floor(homeLocation.getY()),
+                        Math.floor(homeLocation.getZ()) + 0.5
+                );
+
+                COMMAND_USE_TICKS.put(player, Bukkit.getCurrentTick());
+                Location safeLocation = LocationUtil.getSafeDestination(homeLocation);
+                if (safeLocation == null) {
+                    player.sendMessage(Components.formatted(
+                            Format.HOME_FAIL,
+                            "home.command.home.notSafe"
+                    ));
+                    return;
+                }
+
+                Bukkit.getScheduler().runTask(KabanSMPPlugin.getInstance(), () -> Teleports.teleport(player, safeLocation, false, () -> {
+                    player.sendMessage(Components.formatted(Format.HOME_SUCCESS, "home.command.home.success"));
+
+                    if (!safeLocation.equals(homeLocation)) {
+                        player.sendMessage(Components.formatted(
+                                Format.HOME_NOTIFY,
+                                "home.command.home.moved",
+                                Component.text("/sethome").color(ServerColors.MUSTARD)
+                        ));
+                    }
+                }));
             });
         }
         return true;

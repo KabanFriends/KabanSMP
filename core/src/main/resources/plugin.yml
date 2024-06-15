@@ -1,9 +1,12 @@
 name: KabanSMP
 main: io.github.kabanfriends.kabansmp.core.KabanSMPPlugin
-version: 1.2.0
+version: 1.4.0
 author: KabanFriends
 api-version: 1.20
-depend: [ProtocolLib, Vault, floodgate]
+depend:
+  - packetevents
+  - Vault
+  - floodgate
 load: STARTUP
 
 commands:

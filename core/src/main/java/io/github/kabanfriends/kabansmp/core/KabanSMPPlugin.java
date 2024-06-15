@@ -1,13 +1,14 @@
 package io.github.kabanfriends.kabansmp.core;
 
-import io.github.kabanfriends.kabansmp.core.config.LanguageConfig;
-import io.github.kabanfriends.kabansmp.core.config.ModuleConfig;
+import com.github.retrooper.packetevents.PacketEvents;
 import io.github.kabanfriends.kabansmp.core.config.SharedConfig;
+import io.github.kabanfriends.kabansmp.core.database.Database;
+import io.github.kabanfriends.kabansmp.core.language.LanguageManager;
 import io.github.kabanfriends.kabansmp.core.module.Modules;
-import io.github.kabanfriends.kabansmp.core.module.autosave.AutosaveModule;
-import io.github.kabanfriends.kabansmp.core.player.data.PlayerDataManager;
 import io.github.kabanfriends.kabansmp.core.text.Components;
 import io.github.kabanfriends.kabansmp.core.text.formatting.Format;
+import io.github.retrooper.packetevents.factory.spigot.SpigotPacketEventsBuilder;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -20,6 +21,12 @@ public class KabanSMPPlugin extends JavaPlugin {
     private static KabanSMPPlugin instance;
 
     @Override
+    public void onLoad() {
+        PacketEvents.setAPI(SpigotPacketEventsBuilder.build(this));
+        PacketEvents.getAPI().load();
+    }
+
+    @Override
     public void onEnable() {
         instance = this;
 
@@ -28,21 +35,18 @@ public class KabanSMPPlugin extends JavaPlugin {
             pluginDir.mkdir();
         }
 
-        // Load configs
-        SharedConfig.load();
-        LanguageConfig.load();
-        ModuleConfig.load();
+        new SharedConfig().load();
 
-        // Load modules
+        Database.start();
+        LanguageManager.load();
         Modules.load();
 
-        // Other stuff
-        PlayerDataManager.init();
+        Bukkit.getScheduler().runTask(this, () -> PacketEvents.getAPI().init());
     }
 
     @Override
     public void onDisable() {
-        AutosaveModule.doAutosave();
+        PacketEvents.getAPI().terminate();
     }
 
     @Override

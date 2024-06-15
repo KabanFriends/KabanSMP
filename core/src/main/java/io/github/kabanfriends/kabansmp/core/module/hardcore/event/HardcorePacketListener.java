@@ -1,38 +1,24 @@
 package io.github.kabanfriends.kabansmp.core.module.hardcore.event;
 
-import com.comphenix.protocol.PacketType;
-import com.comphenix.protocol.ProtocolLibrary;
-import com.comphenix.protocol.events.ListenerPriority;
-import com.comphenix.protocol.events.PacketAdapter;
-import com.comphenix.protocol.events.PacketContainer;
-import com.comphenix.protocol.events.PacketEvent;
-import io.github.kabanfriends.kabansmp.core.KabanSMPPlugin;
+import com.github.retrooper.packetevents.event.PacketListener;
+import com.github.retrooper.packetevents.event.PacketSendEvent;
+import com.github.retrooper.packetevents.protocol.packettype.PacketType;
+import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerJoinGame;
+import io.github.kabanfriends.kabansmp.core.module.hardcore.HardcoreModule;
 import io.github.kabanfriends.kabansmp.core.player.data.PlayerData;
 import io.github.kabanfriends.kabansmp.core.player.data.PlayerDataManager;
-import org.bukkit.entity.Player;
 
-public class HardcorePacketListener {
+public class HardcorePacketListener implements PacketListener {
 
-    public static void init() {
-        ProtocolLibrary.getProtocolManager().addPacketListener(
-                new PacketAdapter(KabanSMPPlugin.getInstance(), ListenerPriority.NORMAL, PacketType.Play.Server.LOGIN) {
-                    @Override
-                    public void onPacketSending(PacketEvent event) {
-                        try {
-                            Player player = event.getPlayer();
-                            PlayerDataManager.loadPlayer(player);
-                            PlayerData data = PlayerDataManager.getPlayerData(player);
+    @Override
+    public void onPacketSend(PacketSendEvent event) {
+        if (event.getPacketType() == PacketType.Play.Server.JOIN_GAME) {
+            WrapperPlayServerJoinGame packet = new WrapperPlayServerJoinGame(event);
+            PlayerData data = PlayerDataManager.getPlayerData(event.getUser().getUUID());
 
-                            PacketContainer packet = event.getPacket();
-
-                            if (data.hardcoreMode) {
-                                packet.getBooleans().write(0, true);
-                            }
-                        } catch (UnsupportedOperationException ignored) {
-                            // Probably a bedrock player; hardcore hearts don't exist in bedrock anyway so just ignore it
-                        }
-                    }
-                }
-        );
+            if (data.getValue(HardcoreModule.HARDCORE_MODE_DATA)) {
+                packet.setHardcore(true);
+            }
+        }
     }
 }

@@ -17,13 +17,3 @@ dependencies {
     compileOnly("org.spongepowered:mixin:0.8.5")
     compileOnly("io.github.llamalad7:mixinextras-common:0.3.5")
 }
-
-tasks {
-    reobfJar {
-        remapperArgs.add("--mixin")
-    }
-
-    build {
-        dependsOn(reobfJar)
-    }
-}

@@ -8,8 +8,7 @@ public class MotdModule implements Module {
 
     @Override
     public void load() {
-        MotdConfig.load();
-
+        new MotdConfig().load();
         registerEvents(new MotdEventHandler());
     }
 }

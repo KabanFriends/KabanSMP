@@ -26,7 +26,7 @@ public class TablistModule implements Module {
 
     @Override
     public void load() {
-        TablistConfig.load();
+        new TablistConfig().load();
 
         var econProvider = Bukkit.getServer().getServicesManager().getRegistration(Economy.class);
         if (econProvider != null) {
@@ -53,26 +53,26 @@ public class TablistModule implements Module {
 
         List<Component> header = new ArrayList<>();
 
-        if (TablistConfig.showServerName) {
-            header.add(TablistConfig.serverName);
+        if (TablistConfig.SHOW_SERVER_NAME.get()) {
+            header.add(TablistConfig.SERVER_NAME.get());
             header.add(Component.empty());
         }
         header.add(Components.translatable("tablist.header.players",
                 Component.text(players + "/" + Bukkit.getMaxPlayers()).color(ServerColors.WHITE)
         ).color(ServerColors.GRAY_LIGHT));
-        if (TablistConfig.showMoney) {
+        if (TablistConfig.SHOW_MONEY.get()) {
             header.add(Components.translatable("tablist.footer.balance",
                     Component.text(econ.format(econ.getBalance(player))).color(ServerColors.WHITE)
             ).color(ServerColors.GRAY_LIGHT));
         }
         header.add(Components.translatable("tablist.footer.coordinate",
-                Component.text((int) player.getX() + ", " + (int) player.getY() + ", " + (int) player.getZ()).color(ServerColors.WHITE)
+                Component.text((int) Math.floor(player.getX()) + ", " + (int) Math.floor(player.getY()) + ", " + (int) Math.floor(player.getZ())).color(ServerColors.WHITE)
         ).color(ServerColors.GRAY_LIGHT));
 
         // Send tablist header and footer
         player.sendPlayerListHeader(Components.newlined(header));
 
-        if (TablistConfig.customPlayerName) {
+        if (TablistConfig.CUSTOM_PLAYER_NAME.get()) {
             // Set tablist player name
             String prefix = chat.getGroupPrefix(player.getWorld(), chat.getPrimaryGroup(player));
             prefix = prefix.replaceAll("#([a-fA-F0-9]{6})", "§#$1");

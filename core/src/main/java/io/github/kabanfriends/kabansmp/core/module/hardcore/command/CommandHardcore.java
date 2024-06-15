@@ -1,6 +1,8 @@
 package io.github.kabanfriends.kabansmp.core.module.hardcore.command;
 
+import io.github.kabanfriends.kabansmp.core.KabanSMPPlugin;
 import io.github.kabanfriends.kabansmp.core.command.SMPCommand;
+import io.github.kabanfriends.kabansmp.core.module.hardcore.HardcoreModule;
 import io.github.kabanfriends.kabansmp.core.player.PlayerNames;
 import io.github.kabanfriends.kabansmp.core.util.api.PlayerAPI;
 import io.github.kabanfriends.kabansmp.core.player.data.PlayerData;
@@ -16,6 +18,7 @@ import net.kyori.adventure.text.format.Style;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.translation.GlobalTranslator;
 import org.apache.commons.lang.LocaleUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -45,56 +48,59 @@ public class CommandHardcore implements SMPCommand {
         }
 
         PlayerData data = PlayerDataManager.getPlayerData(player);
-        if (data.hardcoreMode) {
-            player.sendMessage(Components.formatted(Format.HARDCORE_NOTIFY, "hardcore.message.alreadyEnabled"));
-            return true;
-        }
-        if (data.deathCount > 0) {
-            player.sendMessage(Components.formatted(Format.HARDCORE_FAIL, "hardcore.message.unavailable"));
-            return true;
-        }
 
-        if (FloodgateApi.getInstance().isFloodgatePlayer(player.getUniqueId())) {
-            FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(player.getUniqueId());
-            ModalForm form = ModalForm.builder()
-                    .translator(CommandHardcore::translateForm, player.locale().getLanguage())
-                    .title("hardcore.form.title")
-                    .content("hardcore.form.description")
-                    .button1("hardcore.form.button.yes")
-                    .button2("hardcore.form.button.no")
-                    .validResultHandler(response -> {
-                       if (response.clickedFirst()) {
-                           acceptPrompt(player);
-                       }
-                    })
-                    .build();
+        Bukkit.getScheduler().runTaskAsynchronously(KabanSMPPlugin.getInstance(), () -> {
+            if (data.getValue(HardcoreModule.HARDCORE_MODE_DATA)) {
+                player.sendMessage(Components.formatted(Format.HARDCORE_NOTIFY, "hardcore.message.alreadyEnabled"));
+                return;
+            }
+            if (data.getValue(HardcoreModule.DEATH_COUNT_DATA) > 0) {
+                player.sendMessage(Components.formatted(Format.HARDCORE_FAIL, "hardcore.message.unavailable"));
+                return;
+            }
 
-            fplayer.sendForm(form);
-            return true;
-        }
+            if (FloodgateApi.getInstance().isFloodgatePlayer(player.getUniqueId())) {
+                FloodgatePlayer fplayer = FloodgateApi.getInstance().getPlayer(player.getUniqueId());
+                ModalForm form = ModalForm.builder()
+                        .translator(CommandHardcore::translateForm, player.locale().getLanguage())
+                        .title("hardcore.form.title")
+                        .content("hardcore.form.description")
+                        .button1("hardcore.form.button.yes")
+                        .button2("hardcore.form.button.no")
+                        .validResultHandler(response -> {
+                            if (response.clickedFirst()) {
+                                acceptPrompt(player);
+                            }
+                        })
+                        .build();
 
-        Component clickToSelect = GlobalTranslator.translator().translate(Components.translatable("all.chat.clickToSelect"), player.locale());
-        Component yesButton = Components.translatable("hardcore.form.button.yes").style(Style.style(ServerColors.GREEN_DARK, TextDecoration.BOLD))
-                .hoverEvent(HoverEvent.showText(clickToSelect))
-                .clickEvent(ClickEvent.runCommand("/kabansmp:hardcore prompt-true"));
-        Component noButton = Components.translatable("hardcore.form.button.no").style(Style.style(ServerColors.RED, TextDecoration.BOLD))
-                .hoverEvent(HoverEvent.showText(clickToSelect))
-                .clickEvent(ClickEvent.runCommand("/kabansmp:hardcore prompt-false"));
+                fplayer.sendForm(form);
+                return;
+            }
 
-        Component content = Components.newlined(
-                Components.of(Component.text("❣", ServerColors.RED), Component.space(), Components.translatable("hardcore.form.title").style(Style.style(TextDecoration.UNDERLINED, TextDecoration.BOLD))),
-                Component.empty(),
-                Components.translatable("hardcore.form.description"),
-                Component.empty(),
-                Components.translatable("hardcore.form.instruction"),
-                Component.empty(),
-                Components.of(Component.text("> ", ServerColors.GRAY_DARK), yesButton),
-                Components.of(Component.text("> ", ServerColors.GRAY_DARK), noButton)
-        );
+            Component clickToSelect = GlobalTranslator.translator().translate(Components.translatable("all.chat.clickToSelect"), player.locale());
+            Component yesButton = Components.translatable("hardcore.form.button.yes").style(Style.style(ServerColors.GREEN_DARK, TextDecoration.BOLD))
+                    .hoverEvent(HoverEvent.showText(clickToSelect))
+                    .clickEvent(ClickEvent.runCommand("/kabansmp:hardcore prompt-true"));
+            Component noButton = Components.translatable("hardcore.form.button.no").style(Style.style(ServerColors.RED, TextDecoration.BOLD))
+                    .hoverEvent(HoverEvent.showText(clickToSelect))
+                    .clickEvent(ClickEvent.runCommand("/kabansmp:hardcore prompt-false"));
 
-        Book book = Book.book(Component.empty(), Component.empty(), content);
-        player.playSound(player, Sound.BLOCK_WOODEN_BUTTON_CLICK_ON, 2.0f, 1.4f);
-        player.openBook(book);
+            Component content = Components.newlined(
+                    Components.of(Component.text("❣", ServerColors.RED), Component.space(), Components.translatable("hardcore.form.title").style(Style.style(TextDecoration.UNDERLINED, TextDecoration.BOLD))),
+                    Component.empty(),
+                    Components.translatable("hardcore.form.description"),
+                    Component.empty(),
+                    Components.translatable("hardcore.form.instruction"),
+                    Component.empty(),
+                    Components.of(Component.text("> ", ServerColors.GRAY_DARK), yesButton),
+                    Components.of(Component.text("> ", ServerColors.GRAY_DARK), noButton)
+            );
+
+            Book book = Book.book(Component.empty(), Component.empty(), content);
+            player.playSound(player, Sound.BLOCK_WOODEN_BUTTON_CLICK_ON, 2.0f, 1.4f);
+            player.openBook(book);
+        });
         return true;
     }
 
@@ -104,14 +110,17 @@ public class CommandHardcore implements SMPCommand {
 
     private static void acceptPrompt(Player player) {
         PlayerData data = PlayerDataManager.getPlayerData(player);
-        data.hardcoreMode = true;
-        PlayerNames.updateDisplayName(player);
 
-        player.playSound(player, Sound.ENTITY_PLAYER_LEVELUP, 2.0f, 1.25f);
-        player.sendMessage(Components.formatted(Format.HARDCORE_SUCCESS, "hardcore.message.enabled"));
+        Bukkit.getScheduler().runTaskAsynchronously(KabanSMPPlugin.getInstance(), () -> {
+            data.setValue(HardcoreModule.HARDCORE_MODE_DATA, true);
+            PlayerNames.updateDisplayName(player);
 
-        if (!FloodgateApi.getInstance().isFloodgatePlayer(player.getUniqueId())) {
-            PlayerAPI.setHardcoreHeart(player, true);
-        }
+            player.playSound(player, Sound.ENTITY_PLAYER_LEVELUP, 2.0f, 1.25f);
+            player.sendMessage(Components.formatted(Format.HARDCORE_SUCCESS, "hardcore.message.enabled"));
+
+            if (!FloodgateApi.getInstance().isFloodgatePlayer(player.getUniqueId())) {
+                Bukkit.getScheduler().runTask(KabanSMPPlugin.getInstance(), () -> PlayerAPI.setHardcoreHeart(player, true));
+            }
+        });
     }
 }

@@ -6,8 +6,6 @@ import io.github.kabanfriends.kabansmp.core.config.SharedConfig;
 import io.github.kabanfriends.kabansmp.core.module.damage.DamageModule;
 import io.github.kabanfriends.kabansmp.core.module.hardcore.HardcoreModule;
 import io.github.kabanfriends.kabansmp.core.player.PlayerNames;
-import io.github.kabanfriends.kabansmp.core.player.data.PlayerData;
-import io.github.kabanfriends.kabansmp.core.player.data.PlayerDataManager;
 import io.github.kabanfriends.kabansmp.core.text.Components;
 import io.github.kabanfriends.kabansmp.core.text.formatting.Format;
 import io.github.kabanfriends.kabansmp.core.text.formatting.ServerColors;
@@ -27,9 +25,6 @@ public class JoinEventHandler implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        PlayerDataManager.loadPlayer(player);
-        PlayerData data = PlayerDataManager.getPlayerData(player);
-        data.hasJoined = true;
 
         PlayerNames.updateDisplayName(player);
 
@@ -48,8 +43,8 @@ public class JoinEventHandler implements Listener {
             player.sendMessage(Components.formatted(
                     Format.GENERIC_NOTIFY,
                     "join.message.website",
-                    Component.text(SharedConfig.websiteUrl, ServerColors.MUSTARD)
-                            .clickEvent(ClickEvent.openUrl(SharedConfig.websiteUrl))
+                    Component.text(SharedConfig.WEBSITE_URL.get(), ServerColors.MUSTARD)
+                            .clickEvent(ClickEvent.openUrl(SharedConfig.WEBSITE_URL.get()))
                             .hoverEvent(HoverEvent.showText(Components.translatable("all.chat.clickToOpen")))
             ));
         }, 5 * 20L);
@@ -58,9 +53,6 @@ public class JoinEventHandler implements Listener {
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
-
-        PlayerDataManager.savePlayer(player);
-        PlayerDataManager.unloadPlayer(player);
 
         DamageModule.LAST_DAMAGE_TICKS.remove(player);
         HardcoreModule.PLAYERS_TO_RESPAWN.remove(player);

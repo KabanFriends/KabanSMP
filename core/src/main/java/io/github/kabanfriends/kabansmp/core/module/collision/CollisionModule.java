@@ -13,7 +13,7 @@ public class CollisionModule implements Module {
 
     @Override
     public void load() {
-        kickReason = GlobalTranslator.translator().translate(Components.translatable("collision.kickReason"), LanguageConfig.defaultLocale);
+        kickReason = GlobalTranslator.translator().translate(Components.translatable("collision.kickReason"), LanguageConfig.DEFAULT_LOCALE.get());
 
         registerEvents(new CollisionEventHandler());
     }
