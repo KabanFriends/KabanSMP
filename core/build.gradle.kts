@@ -5,9 +5,6 @@ plugins {
 val subprojectsToBundle = arrayOf("translation")
 
 val minecraftVersion: String by rootProject
-val floodgateVersion: String by rootProject
-val vaultVersion: String by rootProject
-val protocolLibVersion: String by rootProject
 
 project.base.archivesName = "KabanSMP"
 
@@ -23,11 +20,11 @@ dependencies {
 
     implementation(project(":translation"))
     implementation(project(":injector"))
-    implementation("org.geysermc.floodgate:api:${floodgateVersion}")
-    implementation("com.github.MilkBowl:VaultAPI:${vaultVersion}") {
+    implementation("org.geysermc.floodgate:api:2.2.3-SNAPSHOT")
+    implementation("com.github.MilkBowl:VaultAPI:1.7") {
         exclude("org.bukkit")
     }
-    implementation("com.comphenix.protocol:ProtocolLib:${protocolLibVersion}")
+    implementation("com.comphenix.protocol:ProtocolLib:5.2.0-SNAPSHOT")
     implementation("com.sk89q.worldguard:worldguard-bukkit:7.0.9")
 }
 
