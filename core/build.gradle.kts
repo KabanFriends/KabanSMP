@@ -19,14 +19,14 @@ repositories {
 dependencies {
     paperweight.paperDevBundle(minecraftVersion)
 
-    implementation(project(":injector"))
+    compileOnly(project(":injector"))
 
-    implementation("org.geysermc.floodgate:api:2.2.3-SNAPSHOT")
-    implementation("com.github.MilkBowl:VaultAPI:1.7") { exclude("org.bukkit") }
-    implementation("com.github.retrooper.packetevents:spigot:2.3.0")
+    compileOnly("org.geysermc.floodgate:api:2.2.3-SNAPSHOT")
+    compileOnly("com.github.MilkBowl:VaultAPI:1.7") { exclude("org.bukkit") }
+    compileOnly("com.github.retrooper.packetevents:spigot:2.3.0")
 
-    shadow(project(":translation")) { isTransitive = false }
-    shadow("net.dv8tion:JDA:5.0.0-beta.24") { exclude("opus-java") }
+    implementation(project(":translation")) { isTransitive = false }
+    implementation("net.dv8tion:JDA:5.0.0-beta.24") { exclude("opus-java") }
 }
 
 tasks {
@@ -46,9 +46,5 @@ tasks {
         manifest {
             attributes["paperweight-mappings-namespace"] = "mojang"
         }
-    }
-
-    shadowJar {
-        configurations = listOf(project.configurations.shadow.get())
     }
 }
