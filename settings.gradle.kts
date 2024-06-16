@@ -9,6 +9,7 @@ pluginManagement {
 rootProject.name = "KabanSMP"
 
 includeBuild("build-logic")
+includeBuild("third-party/Ascension")
 
 include("core")
 include("translation")

@@ -11,17 +11,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public interface Module {
+public abstract class Module {
 
-    Map<String, SMPCommand> commands = new HashMap<>();
+    private final Map<String, SMPCommand> commands = new HashMap<>();
 
-    void load();
+    public void onLoad() {
+    };
 
-    default void registerCommand(String name, SMPCommand command) {
+    public void onClose() {
+    };
+
+    public void registerCommand(String name, SMPCommand command) {
         commands.put(name, command);
     }
 
-    default boolean handleCommand(CommandSender sender, Command cmd, String[] args) {
+    public boolean handleCommand(CommandSender sender, Command cmd, String[] args) {
         String name = cmd.getName().toLowerCase();
         for (Map.Entry<String, SMPCommand> entry : commands.entrySet()) {
             if (name.equals(entry.getKey())) {
@@ -31,7 +35,7 @@ public interface Module {
         return false;
     }
 
-    default List<String> handleTabComplete(CommandSender sender, Command cmd, String[] args) {
+    public List<String> handleTabComplete(CommandSender sender, Command cmd, String[] args) {
         String name = cmd.getName().toLowerCase();
         for (Map.Entry<String, SMPCommand> entry : commands.entrySet()) {
             if (name.equals(entry.getKey())) {
@@ -41,7 +45,7 @@ public interface Module {
         return null;
     }
 
-    default void registerEvents(Listener listener) {
+    public void registerEvents(Listener listener) {
         Bukkit.getServer().getPluginManager().registerEvents(listener, KabanSMPPlugin.getInstance());
     }
 }

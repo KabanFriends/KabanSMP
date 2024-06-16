@@ -24,6 +24,7 @@ dependencies {
     compileOnly("org.geysermc.floodgate:api:2.2.3-SNAPSHOT")
     compileOnly("com.github.MilkBowl:VaultAPI:1.7") { exclude("org.bukkit") }
     compileOnly("com.github.retrooper.packetevents:spigot:2.3.0")
+    compileOnly("com.discordsrv:api:3.0.0-SNAPSHOT")
 
     implementation(project(":translation")) { isTransitive = false }
     implementation("net.dv8tion:JDA:5.0.0-beta.24") { exclude("opus-java") }

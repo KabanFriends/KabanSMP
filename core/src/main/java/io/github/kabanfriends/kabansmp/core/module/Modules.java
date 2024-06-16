@@ -32,12 +32,19 @@ public class Modules {
             Module module = findModule(name);
             if (module != null) {
                 KabanSMPPlugin.getInstance().getLogger().log(Level.INFO, "Loading module: " + name);
-                module.load();
+                module.onLoad();
                 LOADED_MODULES.put(name, module);
             } else {
                 KabanSMPPlugin.getInstance().getLogger().log(Level.WARNING, "Module not found: " + name);
             }
         }
+    }
+
+    public static void close() {
+        for (Module module : LOADED_MODULES.values()) {
+            module.onClose();
+        }
+        LOADED_MODULES.clear();
     }
 
     public static boolean isModuleEnabled(String name) {
@@ -76,6 +83,7 @@ public class Modules {
             case "hardcore" -> new HardcoreModule();
             case "spawn" -> new SpawnModule();
             case "collision" -> new CollisionModule();
+            case "discord" -> new DiscordModule();
             default -> null;
         };
     }

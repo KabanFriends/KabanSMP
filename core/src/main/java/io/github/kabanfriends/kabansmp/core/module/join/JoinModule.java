@@ -3,10 +3,10 @@ package io.github.kabanfriends.kabansmp.core.module.join;
 import io.github.kabanfriends.kabansmp.core.module.Module;
 import io.github.kabanfriends.kabansmp.core.module.join.event.JoinEventHandler;
 
-public class JoinModule implements Module {
+public class JoinModule extends Module {
 
     @Override
-    public void load() {
+    public void onLoad() {
         registerEvents(new JoinEventHandler());
     }
 }

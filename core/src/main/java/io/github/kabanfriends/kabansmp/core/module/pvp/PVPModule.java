@@ -8,12 +8,12 @@ import org.bukkit.entity.Player;
 import java.util.HashSet;
 import java.util.Set;
 
-public class PVPModule implements Module {
+public class PVPModule extends Module {
 
     public static final Set<Player> PVP_PLAYERS = new HashSet<>();
 
     @Override
-    public void load() {
+    public void onLoad() {
         registerCommand("pvp", new CommandPVP());
         registerEvents(new PVPEventHandler());
     }

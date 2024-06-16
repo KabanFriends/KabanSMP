@@ -14,7 +14,7 @@ import org.bukkit.entity.Player;
 import java.util.HashSet;
 import java.util.Set;
 
-public class HardcoreModule implements Module {
+public class HardcoreModule extends Module {
 
     public static final Set<Player> PLAYERS_TO_RESPAWN = new HashSet<>();
 
@@ -22,7 +22,7 @@ public class HardcoreModule implements Module {
     public static final DataField<Integer> DEATH_COUNT_DATA = new DataField<>("death_count", ByteCodecs.INTEGER, 0);
 
     @Override
-    public void load() {
+    public void onLoad() {
         PacketEvents.getAPI().getEventManager().registerListener(new HardcorePacketListener(), PacketListenerPriority.NORMAL);
         registerCommand("hardcore", new CommandHardcore());
         registerEvents(new HardcoreDeathEventHandler());

@@ -7,12 +7,12 @@ import io.github.kabanfriends.kabansmp.core.player.data.DataField;
 import io.github.kabanfriends.kabansmp.core.codec.impl.ByteCodecs;
 import org.bukkit.Location;
 
-public class HomeModule implements Module {
+public class HomeModule extends Module {
 
     public static final DataField<Location> HOME_LOCATION_DATA = new DataField<>("home_location", ByteCodecs.LOCATION, null);
 
     @Override
-    public void load() {
+    public void onLoad() {
         registerCommand("sethome", new CommandSetHome());
         registerCommand("home", new CommandHome());
     }

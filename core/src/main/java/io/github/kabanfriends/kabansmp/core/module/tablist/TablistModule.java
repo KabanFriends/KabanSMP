@@ -17,7 +17,7 @@ import org.bukkit.scheduler.BukkitTask;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TablistModule implements Module {
+public class TablistModule extends Module {
 
     private static final int TABLIST_SEND_INTERVAL = 1;
 
@@ -25,7 +25,7 @@ public class TablistModule implements Module {
     private static Chat chat;
 
     @Override
-    public void load() {
+    public void onLoad() {
         new TablistConfig().load();
 
         var econProvider = Bukkit.getServer().getServicesManager().getRegistration(Economy.class);

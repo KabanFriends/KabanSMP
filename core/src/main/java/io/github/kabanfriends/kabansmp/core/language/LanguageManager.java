@@ -19,7 +19,7 @@ import java.util.logging.Level;
 
 public class LanguageManager {
 
-    public static LanguageTranslator translator;
+    private static LanguageTranslator translator;
 
     public static void load() {
         new LanguageConfig().load();
@@ -76,5 +76,9 @@ public class LanguageManager {
     public static void unload() {
         GlobalTranslator.translator().removeSource(translator);
         translator = null;
+    }
+
+    public static LanguageTranslator getTranslator() {
+        return translator;
     }
 }

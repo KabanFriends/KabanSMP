@@ -7,6 +7,8 @@ depend:
   - packetevents
   - Vault
   - floodgate
+softdepend:
+  - DiscordSRV-Ascension
 load: STARTUP
 
 commands:
@@ -33,3 +35,7 @@ commands:
   spawn:
     description: Teleports to the world spawn
     usage: /spawn
+  searchuser:
+    description: Searches Minecraft or Discord users from given input
+    usage: /searchuser <uuid|name|id>
+    permission: 4

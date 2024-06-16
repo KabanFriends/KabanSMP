@@ -1,23 +1,35 @@
 {
+  "metadata.language.name": "English",
+  "metadata.language.nativeName": "English",
+  "metadata.language.tag": "en-US",
+
   "all.command.notLoaded": "You cannot use this command on this server.",
 
-  "all.minecraft.java": "using Java Edition",
-  "all.minecraft.bedrock": "using Bedrock Edition",
+  "all.minecraft.java": "Java Edition",
+  "all.minecraft.bedrock": "Bedrock Edition",
 
   "all.teleport.cooldown": "You cannot teleport until {0} passes since you took damage.",
   "all.teleport.notStanding": "You can only teleport while you are standing on ground!",
 
-  "all.time.seconds": "{0:(second; seconds)}",
+  "all.time.seconds": "{0} {0:(second; seconds)}",
 
   "all.form.button.ok": "OK",
 
   "all.chat.clickToOpen": "Click to open",
   "all.chat.clickToSelect": "Click to select",
 
+  "all.proxy.server.name.survival": "survival",
+  "all.proxy.server.name.creative": "creative",
+
   "base.command.reloadlang.success": "Language files have been reloaded.",
 
   "join.message.joined": "{0} joined ({1})",
   "join.message.left": "{0} left",
+
+  "join.proxy.message.joined": "{0} joined to {1} ({2})",
+  "join.proxy.message.left": "{0} left",
+  "join.proxy.message.changed": "{0} moved to {1}",
+
   "join.message.website": "Check out the website to see all features of our server: {0}",
 
   "pvp.command.pvp.enabled": "PVP has been enabled. You can fight with other players who also have PVP enabled.",
@@ -25,7 +37,7 @@
 
   "home.command.home.notSet": "You haven't set your home point yet! Use {0} to set your home.",
   "home.command.home.notSafe": "Could not find a safe place near your home to teleport to.",
-  "home.command.home.moved": "Teleported to a nearby safe place instead as your home location is no longer available. It is recommended to set your home again with {0}.",
+  "home.command.home.moved": "Teleported to a nearby safe place instead as your home location is no longer available. We recommend you to set your new home with {0}.",
   "home.command.home.cooldown": "Please wait {0} more before using this command again.",
   "home.command.home.success": "Teleported to your home.",
   "home.command.sethome.success": "Your home has been set to the current position. Use {0} to teleport back here.",
@@ -45,5 +57,22 @@
   "hardcore.message.died": "You died! The hardcore mode was disabled.",
   "hardcore.tooltip.chatTag": "Hardcore Mode",
 
-  "collision.kickReason": "The server is still loading! Please try again in a few seconds."
+  "spawn.command.spawn.success": "Teleported to the server spawn.",
+
+  "collision.kickReason": "The server is still loading! Please try again in a few seconds.",
+
+  "discord.bot.status": "✅ Type /verify",
+  "discord.command.verify.description": "Link your Discord account to a Minecraft player",
+  "discord.message.verify.tooMany": "❌ You have already linked your account to the maximum amount of {0} Minecraft players!",
+  "discord.message.verify.error": "❌ An unknown error occurred in the verification process.",
+  "discord.message.verify.incorrect": "❌ Verification code is incorrect. Please enter the code shown in your Minecraft screen.",
+  "discord.message.verify.success": "✅ Registered Minecraft ({0}) account `{1}`!",
+  "discord.modal.verify.title": "Link Your Account",
+  "discord.modal.verify.key.name": "6-digit verification code",
+  "discord.modal.verify.key.placeholder": "012ABC",
+  "discord.verify.kick.description": "To join this server, you must register your\nMinecraft account in our Discord server.",
+  "discord.verify.kick.description.bedrock": "Use the following verification code for registration:",
+  "discord.verify.kick.code": "[Verification Code]\n{0}",
+  "discord.verify.kick.code.bedrock": "[Verification Code] {0}",
+  "discord.verify.kick.help": "Registeration Tutorial:\n{0}"
 }

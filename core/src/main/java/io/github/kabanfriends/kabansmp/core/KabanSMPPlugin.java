@@ -46,6 +46,7 @@ public class KabanSMPPlugin extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        Modules.close();
         PacketEvents.getAPI().terminate();
     }
 

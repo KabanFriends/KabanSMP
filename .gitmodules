@@ -1,3 +1,6 @@
 [submodule "translation"]
 	path = translation
 	url = git@github.com:KabanFriends/translation.git
+[submodule "third-party/Ascension"]
+	path = third-party/Ascension
+	url = https://github.com/DiscordSRV/Ascension.git

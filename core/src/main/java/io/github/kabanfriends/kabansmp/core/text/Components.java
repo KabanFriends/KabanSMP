@@ -1,18 +1,16 @@
 package io.github.kabanfriends.kabansmp.core.text;
 
+import io.github.kabanfriends.kabansmp.core.config.LanguageConfig;
 import io.github.kabanfriends.kabansmp.core.text.formatting.Format;
-import io.papermc.paper.adventure.PaperAdventure;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.JoinConfiguration;
 import net.kyori.adventure.text.TranslatableComponent;
 import net.kyori.adventure.text.TranslationArgument;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
+import net.kyori.adventure.translation.GlobalTranslator;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class Components {
 
@@ -40,6 +38,18 @@ public class Components {
             return null;
         }).filter(Objects::nonNull).toList();
         return Component.translatable(key, argumentList);
+    }
+
+    public static Component translate(TranslatableComponent translatable) {
+        return GlobalTranslator.render(translatable, LanguageConfig.DEFAULT_LOCALE.get());
+    }
+
+    public static Component translate(String key, Locale locale, Object... objects) {
+        return GlobalTranslator.render(Components.translatable(key, objects), locale);
+    }
+
+    public static Component translate(String key, Object... objects) {
+        return translate(key, LanguageConfig.DEFAULT_LOCALE.get(), objects);
     }
 
     public static Component formatted(Format format, Component component) {

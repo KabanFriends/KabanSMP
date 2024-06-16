@@ -1,4 +1,8 @@
 {
+  "metadata.language.name": "Japanese",
+  "metadata.language.nativeName": "日本語",
+  "metadata.language.tag": "ja",
+
   "all.command.notLoaded": "このコマンドは、このサーバーでは使用できません。",
 
   "all.minecraft.java": "Java版",
@@ -12,10 +16,18 @@
   "all.chat.clickToOpen": "クリックで開く",
   "all.chat.clickToSelect": "クリックで選ぶ",
 
+  "all.proxy.server.name.survival": "サバイバル",
+  "all.proxy.server.name.creative": "クリエイティブ",
+
   "base.command.reloadlang.success": "言語ファイルを再読み込みしました。",
 
   "join.message.joined": "{0}が参加しました ({1})",
   "join.message.left": "{0}が退出しました",
+
+  "join.proxy.message.joined": "{0}が{1}に参加しました ({2})",
+  "join.proxy.message.left": "{0}が退出しました",
+  "join.proxy.message.changed": "{0}が{1}に移動しました",
+
   "join.message.website": "サーバーの独自機能をウェブサイトで紹介しています。\n是非見てね!! →→→ {0}",
 
   "pvp.command.pvp.enabled": "PVPをONにしました。 PVPをONにしている他のプレイヤーと戦うことができます。",
@@ -43,5 +55,22 @@
   "hardcore.message.died": "死んでしまったので、ハードコアモードは終了しました。",
   "hardcore.tooltip.chatTag": "ハードコアモード",
 
-  "collision.kickReason": "サーバーはロード中です。\n数秒後にもう一度お試しください。"
+  "spawn.command.spawn.success": "サーバーの初期スポーン地点にワープしました。",
+
+  "collision.kickReason": "サーバーはロード中です。\n数秒後にもう一度お試しください。",
+
+  "discord.bot.status": "✅ /verify で参加登録",
+  "discord.command.verify.description": "認証コードを使って、MinecraftのアカウントをDiscordに紐づける",
+  "discord.message.verify.tooMany": "❌ 既に{0}つのMinecraftのアカウントに紐づけされているので、これ以上は登録できません。",
+  "discord.message.verify.error": "❌ 認証コードの確認中に、不明なエラーが発生しました",
+  "discord.message.verify.incorrect": "❌ 認証コードが間違っています。Minecraft内に表示されたコードを入力してください。",
+  "discord.message.verify.success": "✅ Minecraft({0})のアカウント `{1}` を登録しました。",
+  "discord.modal.verify.title": "アカウント登録",
+  "discord.modal.verify.key.name": "6桁の認証コードを入力",
+  "discord.modal.verify.key.placeholder": "012ABC",
+  "discord.verify.kick.description": "このサーバーに参加するには、Discordサーバーで\nMinecraftのアカウントを登録してください。",
+  "discord.verify.kick.description.bedrock": "以下の認証コードを使用して、アカウントを登録してください。",
+  "discord.verify.kick.code": "【認証コード】\n{0}",
+  "discord.verify.kick.code.bedrock": "【認証コード】{0}",
+  "discord.verify.kick.help": "アカウントの登録方法は、以下のサイトをご覧ください。\n{0}"
 }
