@@ -1,4 +1,4 @@
-package io.github.kabanfriends.kabansmp.core.language;
+package io.github.kabanfriends.kabansmp.core.text.language;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;

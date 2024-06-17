@@ -3,7 +3,7 @@ package io.github.kabanfriends.kabansmp.core;
 import com.github.retrooper.packetevents.PacketEvents;
 import io.github.kabanfriends.kabansmp.core.config.SharedConfig;
 import io.github.kabanfriends.kabansmp.core.database.Database;
-import io.github.kabanfriends.kabansmp.core.language.LanguageManager;
+import io.github.kabanfriends.kabansmp.core.text.language.LanguageManager;
 import io.github.kabanfriends.kabansmp.core.module.Modules;
 import io.github.kabanfriends.kabansmp.core.text.Components;
 import io.github.kabanfriends.kabansmp.core.text.formatting.Format;

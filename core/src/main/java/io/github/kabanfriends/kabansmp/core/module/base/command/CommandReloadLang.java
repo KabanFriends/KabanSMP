@@ -1,7 +1,7 @@
 package io.github.kabanfriends.kabansmp.core.module.base.command;
 
 import io.github.kabanfriends.kabansmp.core.command.SMPCommand;
-import io.github.kabanfriends.kabansmp.core.language.LanguageManager;
+import io.github.kabanfriends.kabansmp.core.text.language.LanguageManager;
 import io.github.kabanfriends.kabansmp.core.text.Components;
 import io.github.kabanfriends.kabansmp.core.text.formatting.Format;
 import net.kyori.adventure.text.format.NamedTextColor;

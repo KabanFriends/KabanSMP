@@ -3,7 +3,7 @@ package io.github.kabanfriends.kabansmp.core.module.discord;
 import com.discordsrv.api.DiscordSRVApi;
 import io.github.kabanfriends.kabansmp.core.KabanSMPPlugin;
 import io.github.kabanfriends.kabansmp.core.config.DiscordConfig;
-import io.github.kabanfriends.kabansmp.core.language.LanguageManager;
+import io.github.kabanfriends.kabansmp.core.text.language.LanguageManager;
 import io.github.kabanfriends.kabansmp.core.module.Module;
 import io.github.kabanfriends.kabansmp.core.module.discord.command.CommandSearchUser;
 import io.github.kabanfriends.kabansmp.core.module.discord.event.DiscordBotEventListener;
