@@ -5,6 +5,7 @@ import com.github.retrooper.packetevents.event.PacketListenerPriority;
 import io.github.kabanfriends.kabansmp.core.module.Module;
 import io.github.kabanfriends.kabansmp.core.module.hardcore.event.HardcoreDeathEventHandler;
 import io.github.kabanfriends.kabansmp.core.module.hardcore.command.CommandHardcore;
+import io.github.kabanfriends.kabansmp.core.module.hardcore.event.HardcoreJoinEventHandler;
 import io.github.kabanfriends.kabansmp.core.module.hardcore.event.HardcorePacketListener;
 import io.github.kabanfriends.kabansmp.core.player.data.DataField;
 import io.github.kabanfriends.kabansmp.core.codec.impl.ByteCodecs;
@@ -25,5 +26,6 @@ public class HardcoreModule implements Module {
         PacketEvents.getAPI().getEventManager().registerListener(new HardcorePacketListener(), PacketListenerPriority.NORMAL);
         registerCommand("hardcore", new CommandHardcore());
         registerEvents(new HardcoreDeathEventHandler());
+        registerEvents(new HardcoreJoinEventHandler());
     }
 }
