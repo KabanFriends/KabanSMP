@@ -111,8 +111,8 @@ public class PlayerAPI {
 
         if (!isRespawning) {
             resendSelf(player);
-            level.playerChunkLoader.removePlayer(nmsPlayer);
-            level.playerChunkLoader.addPlayer(nmsPlayer);
+            level.moonrise$getPlayerChunkLoader().removePlayer(nmsPlayer);
+            level.moonrise$getPlayerChunkLoader().addPlayer(nmsPlayer);
         }
 
         PlayerList playerList = level.getServer().getPlayerList();
