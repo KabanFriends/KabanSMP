@@ -1,15 +1,9 @@
-package io.github.kabanfriends.kabansmp.core.module.discord.event;
+package io.github.kabanfriends.kabansmp.core.module.discord;
 
 import io.github.kabanfriends.kabansmp.core.KabanSMPPlugin;
 import io.github.kabanfriends.kabansmp.core.config.DiscordConfig;
-import io.github.kabanfriends.kabansmp.core.module.discord.DiscordHelper;
-import io.github.kabanfriends.kabansmp.core.module.discord.DiscordLink;
-import io.github.kabanfriends.kabansmp.core.module.discord.DiscordModule;
-import io.github.kabanfriends.kabansmp.core.module.discord.MinecraftUserInfo;
 import net.dv8tion.jda.api.events.interaction.ModalInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
-import net.dv8tion.jda.api.events.session.ReadyEvent;
-import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.SlashCommandInteraction;
 import net.dv8tion.jda.api.interactions.components.ActionRow;
 import net.dv8tion.jda.api.interactions.components.text.TextInput;
@@ -18,21 +12,13 @@ import net.dv8tion.jda.api.interactions.modals.Modal;
 import net.dv8tion.jda.api.interactions.modals.ModalInteraction;
 import net.dv8tion.jda.api.interactions.modals.ModalMapping;
 import org.bukkit.Bukkit;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Locale;
 import java.util.logging.Level;
 
-public class DiscordBotEventListener extends ListenerAdapter {
+public class BotEventHandler {
 
-    @Override
-    public void onReady(ReadyEvent event) {
-        KabanSMPPlugin.getInstance().getLogger().log(Level.INFO, "[Discord] Bot is ready!");
-        DiscordModule.initializeBot();
-    }
-
-    @Override
-    public void onSlashCommandInteraction(@NotNull SlashCommandInteractionEvent event) {
+    public static void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
         KabanSMPPlugin.getInstance().getLogger().log(Level.INFO, "[Discord] " + event.getUser().getName() + " used command " + event.getCommandString());
         SlashCommandInteraction interaction = event.getInteraction();
         Locale locale = event.getUserLocale().toLocale();
@@ -60,8 +46,7 @@ public class DiscordBotEventListener extends ListenerAdapter {
         }
     }
 
-    @Override
-    public void onModalInteraction(@NotNull ModalInteractionEvent event) {
+    public static void onModalInteraction(ModalInteractionEvent event) {
         KabanSMPPlugin.getInstance().getLogger().log(Level.INFO, "[Discord] " + event.getUser().getName() + " used modal " + event.getModalId());
         ModalInteraction interaction = event.getInteraction();
         Locale locale = event.getUserLocale().toLocale();

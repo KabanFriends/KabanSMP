@@ -3,10 +3,11 @@ package io.github.kabanfriends.kabansmp.core.module.discord;
 import com.discordsrv.api.DiscordSRVApi;
 import io.github.kabanfriends.kabansmp.core.KabanSMPPlugin;
 import io.github.kabanfriends.kabansmp.core.config.DiscordConfig;
+import io.github.kabanfriends.kabansmp.core.module.discord.event.DiscordSRVEventListener;
 import io.github.kabanfriends.kabansmp.core.text.language.LanguageManager;
 import io.github.kabanfriends.kabansmp.core.module.Module;
 import io.github.kabanfriends.kabansmp.core.module.discord.command.CommandSearchUser;
-import io.github.kabanfriends.kabansmp.core.module.discord.event.DiscordBotEventListener;
+import io.github.kabanfriends.kabansmp.core.module.discord.event.JDAEventListener;
 import io.github.kabanfriends.kabansmp.core.module.discord.event.DiscordJoinEventHandler;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -26,6 +27,8 @@ public class DiscordModule extends Module {
     private static JDA jda;
     private static boolean initialized;
 
+    private boolean isDiscordSRV = false;
+
     @Override
     public void onLoad() {
         new DiscordConfig().load();
@@ -39,13 +42,14 @@ public class DiscordModule extends Module {
         // If DiscordSRV is enabled, use their JDA instance
         if (Bukkit.getServer().getPluginManager().isPluginEnabled("DiscordSRV-Ascension") && DiscordSRVApi.isAvailable()) {
             KabanSMPPlugin.getInstance().getLogger().log(Level.INFO, "[Discord] Using DiscordSRV JDA instance");
+            DiscordSRVApi.get().eventBus().subscribe(new DiscordSRVEventListener());
             jda = DiscordSRVApi.get().jda();
-            jda.addEventListener(new DiscordBotEventListener());
             jda.getPresence().setActivity(activity);
             DiscordModule.initializeBot();
+            isDiscordSRV = true;
         } else {
             jda = JDABuilder.createLight(DiscordConfig.BOT_TOKEN.get())
-                    .addEventListeners(new DiscordBotEventListener())
+                    .addEventListeners(new JDAEventListener())
                     .setActivity(activity)
                     .build();
         }
@@ -55,14 +59,16 @@ public class DiscordModule extends Module {
     public void onClose() {
         KabanSMPPlugin.getInstance().getLogger().log(Level.INFO, "Shutting down Discord bot");
 
-        // https://jda.wiki/using-jda/troubleshooting/#illegalstateexception-zip-file-closed
-        try {
-            jda.shutdown();
-            if (!jda.awaitShutdown(Duration.ofSeconds(10))) {
-                jda.shutdownNow();
-                jda.awaitShutdown();
-            }
-        } catch (Exception ignored) {}
+        if (!isDiscordSRV) {
+            // https://jda.wiki/using-jda/troubleshooting/#illegalstateexception-zip-file-closed
+            try {
+                jda.shutdown();
+                if (!jda.awaitShutdown(Duration.ofSeconds(10))) {
+                    jda.shutdownNow();
+                    jda.awaitShutdown();
+                }
+            } catch (Exception ignored) {}
+        }
     }
 
     public static void initializeBot() {
