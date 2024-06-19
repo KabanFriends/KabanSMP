@@ -5,6 +5,7 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
 import io.github.kabanfriends.kabansmp.core.KabanSMPPlugin;
 import io.github.kabanfriends.kabansmp.core.config.LanguageConfig;
+import io.github.kabanfriends.kabansmp.core.util.ResourceExtractor;
 import io.github.kabanfriends.kabansmp.translation.language.Language;
 import io.github.kabanfriends.kabansmp.translation.language.LanguageTranslator;
 import net.kyori.adventure.translation.GlobalTranslator;
@@ -14,6 +15,7 @@ import org.apache.commons.lang.LocaleUtils;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.Locale;
 import java.util.logging.Level;
 
@@ -25,6 +27,20 @@ public class LanguageManager {
         new LanguageConfig().load();
 
         File langDir = new File("plugins/KabanSMP/lang");
+
+        if (!langDir.exists()) {
+            langDir.mkdir();
+        }
+
+        /*
+        Extract language files from JAR
+        */
+        try {
+            new ResourceExtractor(KabanSMPPlugin.getInstance(), langDir, "lang", null).extract(false);
+        } catch (IOException e) {
+            KabanSMPPlugin.getInstance().getLogger().log(Level.WARNING, "Failed to extract default language files!");
+            e.printStackTrace();
+        }
 
         KabanSMPPlugin.getInstance().getLogger().log(Level.INFO, "Default locale: " + LanguageConfig.DEFAULT_LOCALE.get());
         translator = new LanguageTranslator(LanguageConfig.DEFAULT_LOCALE.get());
