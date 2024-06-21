@@ -97,7 +97,7 @@ public class CommandHardcore implements SMPCommand {
                     Components.of(Component.text("> ", ServerColors.GRAY_DARK), noButton)
             );
 
-            Book book = Book.book(Component.empty(), Component.empty(), content);
+            Book book = Book.book(Component.empty(), Component.empty(), GlobalTranslator.render(content, player.locale()));
             player.playSound(player, Sound.BLOCK_WOODEN_BUTTON_CLICK_ON, 2.0f, 1.4f);
             player.openBook(book);
         });
