@@ -5,6 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import io.github.kabanfriends.kabansmp.core.codec.JsonCodec;
+import io.github.kabanfriends.kabansmp.core.module.serverlinks.ServerLinkData;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.apache.commons.lang.LocaleUtils;
@@ -12,6 +13,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 
 import java.lang.reflect.Array;
+import java.net.URI;
 import java.util.Locale;
 import java.util.function.Function;
 
@@ -48,10 +50,25 @@ public class JsonCodecs {
             (property, value) -> property.set(new JsonPrimitive(MiniMessage.miniMessage().serialize(value))),
             (property) -> MiniMessage.miniMessage().deserialize(property.get().getAsString())
     );
-    public static final JsonCodec<Component[]> COMPONENT_ARRAY = new ArrayCodec<>(Component.class, (value) -> new JsonPrimitive(MiniMessage.miniMessage().serialize(value)), (property) -> MiniMessage.miniMessage().deserialize(property.getAsString()));
+    public static final JsonCodec<Component[]> COMPONENT_ARRAY = new ArrayCodec<>(Component.class, (value) -> new JsonPrimitive(MiniMessage.miniMessage().serialize(value)), (element) -> MiniMessage.miniMessage().deserialize(element.getAsString()));
     public static final JsonCodec<Locale> LOCALE = new JsonCodec<>(
             (property, value) -> property.set(new JsonPrimitive(value.getLanguage())),
             (property) -> LocaleUtils.toLocale(property.get().getAsString())
+    );
+    public static final ArrayCodec<ServerLinkData> SERVER_LINK_ARRAY = new ArrayCodec<>(ServerLinkData.class,
+            (value) -> {
+                JsonObject json = new JsonObject();
+                json.addProperty("id", value.id());
+                json.addProperty("url", value.uri().toString());
+                return json;
+            },
+            (element) -> {
+                JsonObject json = element.getAsJsonObject();
+                return new ServerLinkData(
+                        json.get("id").getAsString(),
+                        URI.create(json.get("url").getAsString())
+                );
+            }
     );
 
     public static class ArrayCodec<T> extends JsonCodec<T[]> {

@@ -74,5 +74,7 @@
   "discord.verify.kick.description.bedrock": "Use the following verification code for registration:",
   "discord.verify.kick.code": "[Verification Code]\n{0}",
   "discord.verify.kick.code.bedrock": "[Verification Code] {0}",
-  "discord.verify.kick.help": "Registeration Tutorial:\n{0}"
+  "discord.verify.kick.help": "Registeration Tutorial:\n{0}",
+
+  "serverlinks.link.example.name": "Example Link"
 }

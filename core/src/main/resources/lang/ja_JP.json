@@ -72,5 +72,7 @@
   "discord.verify.kick.description.bedrock": "以下の認証コードを使用して、アカウントを登録してください。",
   "discord.verify.kick.code": "【認証コード】\n{0}",
   "discord.verify.kick.code.bedrock": "【認証コード】{0}",
-  "discord.verify.kick.help": "アカウントの登録方法は、以下のサイトをご覧ください。\n{0}"
+  "discord.verify.kick.help": "アカウントの登録方法は、以下のサイトをご覧ください。\n{0}",
+
+  "serverlinks.link.example.name": "サンプルリンク"
 }
