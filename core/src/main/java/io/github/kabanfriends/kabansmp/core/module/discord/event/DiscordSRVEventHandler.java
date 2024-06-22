@@ -1,11 +1,10 @@
 package io.github.kabanfriends.kabansmp.core.module.discord.event;
 
 import com.discordsrv.api.event.bus.Subscribe;
-import io.github.kabanfriends.kabansmp.core.module.discord.BotEventHandler;
 import net.dv8tion.jda.api.events.interaction.ModalInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 
-public class DiscordSRVEventListener {
+public class DiscordSRVEventHandler {
 
     @Subscribe
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {

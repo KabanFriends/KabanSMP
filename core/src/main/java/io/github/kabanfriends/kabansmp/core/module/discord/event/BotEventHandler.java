@@ -1,7 +1,10 @@
-package io.github.kabanfriends.kabansmp.core.module.discord;
+package io.github.kabanfriends.kabansmp.core.module.discord.event;
 
 import io.github.kabanfriends.kabansmp.core.KabanSMPPlugin;
 import io.github.kabanfriends.kabansmp.core.config.DiscordConfig;
+import io.github.kabanfriends.kabansmp.core.module.discord.DiscordHelper;
+import io.github.kabanfriends.kabansmp.core.module.discord.DiscordLink;
+import io.github.kabanfriends.kabansmp.core.module.discord.MinecraftUserInfo;
 import net.dv8tion.jda.api.events.interaction.ModalInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.SlashCommandInteraction;

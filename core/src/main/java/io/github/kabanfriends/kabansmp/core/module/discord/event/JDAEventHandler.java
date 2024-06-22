@@ -9,7 +9,7 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import java.util.logging.Level;
 
-public class JDAEventListener extends ListenerAdapter {
+public class JDAEventHandler extends ListenerAdapter {
 
     @Override
     public void onReady(ReadyEvent event) {
