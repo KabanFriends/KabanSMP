@@ -8,6 +8,8 @@ import io.github.kabanfriends.kabansmp.core.module.discord.MinecraftUserInfo;
 import io.github.kabanfriends.kabansmp.core.text.Components;
 import io.github.kabanfriends.kabansmp.core.text.formatting.ServerColors;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.event.ClickEvent;
+import net.kyori.adventure.text.event.HoverEvent;
 import net.kyori.adventure.text.format.Style;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.translation.GlobalTranslator;
@@ -44,12 +46,16 @@ public class DiscordJoinEventHandler implements Listener {
                         Components.translatable("discord.verify.kick.code.bedrock", code).color(ServerColors.WHITE)
                 );
             } else {
+                Component url = Component.text(DiscordConfig.HELP_URL.get(), ServerColors.MUSTARD)
+                        .hoverEvent(HoverEvent.showText(Components.translatable("all.chat.clickToOpen")))
+                        .clickEvent(ClickEvent.openUrl(DiscordConfig.HELP_URL.get()));
+
                 reason = Components.newlined(
                         Components.translatable("discord.verify.kick.description").color(ServerColors.AQUA_LIGHT_3),
                         Component.empty(),
                         Components.translatable("discord.verify.kick.code", code).color(ServerColors.WHITE),
                         Component.empty(),
-                        Components.translatable("discord.verify.kick.help", Component.text(DiscordConfig.HELP_URL.get(), ServerColors.MUSTARD)).color(ServerColors.GREEN_LIGHT_3)
+                        Components.translatable("discord.verify.kick.help", url).color(ServerColors.GREEN_LIGHT_3)
                 );
             }
 
