@@ -3,6 +3,8 @@ package io.github.kabanfriends.kabansmp.core;
 import com.github.retrooper.packetevents.PacketEvents;
 import io.github.kabanfriends.kabansmp.core.config.SharedConfig;
 import io.github.kabanfriends.kabansmp.core.database.Database;
+import io.github.kabanfriends.kabansmp.core.platform.Platform;
+import io.github.kabanfriends.kabansmp.core.platform.PlatformCapability;
 import io.github.kabanfriends.kabansmp.core.text.language.LanguageManager;
 import io.github.kabanfriends.kabansmp.core.module.Modules;
 import io.github.kabanfriends.kabansmp.core.text.Components;
@@ -16,14 +18,21 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.io.File;
 import java.util.List;
 
-public class KabanSMPPlugin extends JavaPlugin {
+public class KabanSMP extends JavaPlugin {
 
-    private static KabanSMPPlugin instance;
+    private static KabanSMP instance;
+
+    private Platform platform;
 
     @Override
     public void onLoad() {
-        PacketEvents.setAPI(SpigotPacketEventsBuilder.build(this));
-        PacketEvents.getAPI().load();
+        if (platform == null) {
+            throw new IllegalStateException("No platform is specified!");
+        }
+        if (platform.hasCapability(PlatformCapability.PACKET_EVENTS)) {
+            PacketEvents.setAPI(SpigotPacketEventsBuilder.build(this));
+            PacketEvents.getAPI().load();
+        }
     }
 
     @Override
@@ -41,13 +50,17 @@ public class KabanSMPPlugin extends JavaPlugin {
         LanguageManager.load();
         Modules.load();
 
-        Bukkit.getScheduler().runTask(this, () -> PacketEvents.getAPI().init());
+        if (platform.hasCapability(PlatformCapability.PACKET_EVENTS)) {
+            Bukkit.getScheduler().runTask(this, () -> PacketEvents.getAPI().init());
+        }
     }
 
     @Override
     public void onDisable() {
         Modules.close();
-        PacketEvents.getAPI().terminate();
+        if (platform.hasCapability(PlatformCapability.PACKET_EVENTS)) {
+            PacketEvents.getAPI().terminate();
+        }
     }
 
     @Override
@@ -64,7 +77,15 @@ public class KabanSMPPlugin extends JavaPlugin {
         return Modules.handleTabComplete(sender, cmd, args);
     }
 
-    public static KabanSMPPlugin getInstance() {
+    public void setPlatform(Platform platform) {
+        this.platform = platform;
+    }
+
+    public Platform getPlatform() {
+        return platform;
+    }
+
+    public static KabanSMP getInstance() {
         return instance;
     }
 }

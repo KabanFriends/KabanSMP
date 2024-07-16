@@ -2,6 +2,7 @@ package io.github.kabanfriends.kabansmp.core.module.damage;
 
 import io.github.kabanfriends.kabansmp.core.module.Module;
 import io.github.kabanfriends.kabansmp.core.module.damage.event.DamageEventHandler;
+import io.github.kabanfriends.kabansmp.core.platform.PlatformCapability;
 import org.bukkit.entity.Player;
 
 import java.util.Map;
@@ -14,5 +15,12 @@ public class DamageModule extends Module {
     @Override
     public void onLoad() {
         registerEvents(new DamageEventHandler());
+    }
+
+    @Override
+    public PlatformCapability[] requiredCapabilities() {
+        return new PlatformCapability[] {
+                PlatformCapability.BUKKIT_API
+        };
     }
 }

@@ -1,6 +1,6 @@
 package io.github.kabanfriends.kabansmp.core.module;
 
-import io.github.kabanfriends.kabansmp.core.KabanSMPPlugin;
+import io.github.kabanfriends.kabansmp.core.KabanSMP;
 import io.github.kabanfriends.kabansmp.core.config.SharedConfig;
 import io.github.kabanfriends.kabansmp.core.module.base.BaseModule;
 import io.github.kabanfriends.kabansmp.core.module.collision.CollisionModule;
@@ -15,6 +15,7 @@ import io.github.kabanfriends.kabansmp.core.module.serverlinks.ServerLinksModule
 import io.github.kabanfriends.kabansmp.core.module.spawn.SpawnModule;
 import io.github.kabanfriends.kabansmp.core.module.tablist.TablistModule;
 import io.github.kabanfriends.kabansmp.core.module.test.TestModule;
+import io.github.kabanfriends.kabansmp.core.platform.PlatformCapability;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
@@ -29,14 +30,21 @@ public class Modules {
     private static final Map<String, Module> LOADED_MODULES = new HashMap<>();
 
     public static void load() {
+        modules:
         for (String name : SharedConfig.MODULES.get()) {
             Module module = findModule(name);
             if (module != null) {
-                KabanSMPPlugin.getInstance().getLogger().log(Level.INFO, "Loading module: " + name);
+                KabanSMP.getInstance().getLogger().log(Level.INFO, "Loading module: " + name);
+                for (PlatformCapability capability : module.requiredCapabilities()) {
+                    if (!KabanSMP.getInstance().getPlatform().hasCapability(capability)) {
+                        KabanSMP.getInstance().getLogger().log(Level.SEVERE, "Platform does not have the capability " + capability.name() + " required by module \"" + name + "\".");
+                        continue modules;
+                    }
+                }
                 module.onLoad();
                 LOADED_MODULES.put(name, module);
             } else {
-                KabanSMPPlugin.getInstance().getLogger().log(Level.WARNING, "Module not found: " + name);
+                KabanSMP.getInstance().getLogger().log(Level.WARNING, "Module not found: " + name);
             }
         }
     }

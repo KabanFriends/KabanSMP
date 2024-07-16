@@ -1,6 +1,6 @@
 package io.github.kabanfriends.kabansmp.core.module.hardcore.command;
 
-import io.github.kabanfriends.kabansmp.core.KabanSMPPlugin;
+import io.github.kabanfriends.kabansmp.core.KabanSMP;
 import io.github.kabanfriends.kabansmp.core.command.SMPCommand;
 import io.github.kabanfriends.kabansmp.core.module.hardcore.HardcoreModule;
 import io.github.kabanfriends.kabansmp.core.player.PlayerNames;
@@ -49,7 +49,7 @@ public class CommandHardcore implements SMPCommand {
 
         PlayerData data = PlayerDataManager.getPlayerData(player);
 
-        Bukkit.getScheduler().runTaskAsynchronously(KabanSMPPlugin.getInstance(), () -> {
+        Bukkit.getScheduler().runTaskAsynchronously(KabanSMP.getInstance(), () -> {
             if (data.getValue(HardcoreModule.HARDCORE_MODE_DATA)) {
                 player.sendMessage(Components.formatted(Format.HARDCORE_NOTIFY, "hardcore.message.alreadyEnabled"));
                 return;
@@ -111,7 +111,7 @@ public class CommandHardcore implements SMPCommand {
     private static void acceptPrompt(Player player) {
         PlayerData data = PlayerDataManager.getPlayerData(player);
 
-        Bukkit.getScheduler().runTaskAsynchronously(KabanSMPPlugin.getInstance(), () -> {
+        Bukkit.getScheduler().runTaskAsynchronously(KabanSMP.getInstance(), () -> {
             data.setValue(HardcoreModule.HARDCORE_MODE_DATA, true);
             PlayerNames.updateDisplayName(player);
 
@@ -119,7 +119,7 @@ public class CommandHardcore implements SMPCommand {
             player.sendMessage(Components.formatted(Format.HARDCORE_SUCCESS, "hardcore.message.enabled"));
 
             if (!FloodgateApi.getInstance().isFloodgatePlayer(player.getUniqueId())) {
-                Bukkit.getScheduler().runTask(KabanSMPPlugin.getInstance(), () -> PlayerAPI.setHardcoreHeart(player, true));
+                Bukkit.getScheduler().runTask(KabanSMP.getInstance(), () -> PlayerAPI.setHardcoreHeart(player, true));
             }
         });
     }

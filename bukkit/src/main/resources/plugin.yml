@@ -1,14 +1,8 @@
 name: KabanSMP
-main: io.github.kabanfriends.kabansmp.paper.KabanSMPPaper
+main: io.github.kabanfriends.kabansmp.bukkit.KabanSMPBukkit
 version: 2.0.0
 author: KabanFriends
 api-version: 1.20
-depend:
-  - packetevents
-  - Vault
-  - floodgate
-softdepend:
-  - DiscordSRV-Ascension
 load: STARTUP
 
 commands:

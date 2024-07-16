@@ -7,6 +7,7 @@ import io.github.kabanfriends.kabansmp.core.module.hardcore.event.HardcoreDeathE
 import io.github.kabanfriends.kabansmp.core.module.hardcore.command.CommandHardcore;
 import io.github.kabanfriends.kabansmp.core.module.hardcore.event.HardcoreJoinEventHandler;
 import io.github.kabanfriends.kabansmp.core.module.hardcore.event.HardcorePacketListener;
+import io.github.kabanfriends.kabansmp.core.platform.PlatformCapability;
 import io.github.kabanfriends.kabansmp.core.player.data.DataField;
 import io.github.kabanfriends.kabansmp.core.codec.impl.ByteCodecs;
 import org.bukkit.entity.Player;
@@ -27,5 +28,14 @@ public class HardcoreModule extends Module {
         registerCommand("hardcore", new CommandHardcore());
         registerEvents(new HardcoreDeathEventHandler());
         registerEvents(new HardcoreJoinEventHandler());
+    }
+
+    @Override
+    public PlatformCapability[] requiredCapabilities() {
+        return new PlatformCapability[] {
+                PlatformCapability.BUKKIT_API,
+                PlatformCapability.PAPER_API,
+                PlatformCapability.PACKET_EVENTS
+        };
     }
 }

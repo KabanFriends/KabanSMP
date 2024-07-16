@@ -3,7 +3,7 @@ package io.github.kabanfriends.kabansmp.core.player.data;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
-import io.github.kabanfriends.kabansmp.core.KabanSMPPlugin;
+import io.github.kabanfriends.kabansmp.core.KabanSMP;
 import io.github.kabanfriends.kabansmp.core.database.Database;
 import io.github.kabanfriends.kabansmp.core.util.ByteBufUtil;
 import io.netty.buffer.ByteBuf;
@@ -34,7 +34,7 @@ public class PlayerData {
                                 try {
                                     return makeOptional(key.codec().deserialize(Unpooled.copiedBuffer(rs.getBytes("value"))));
                                 } catch (Exception e) {
-                                    KabanSMPPlugin.getInstance().getLogger().log(Level.WARNING, "Failed to deserialize player data: " + key.id() + " (" + uuid + ")");
+                                    KabanSMP.getInstance().getLogger().log(Level.WARNING, "Failed to deserialize player data: " + key.id() + " (" + uuid + ")");
                                     return makeOptional(key.defaultValue());
                                 }
                             } else {

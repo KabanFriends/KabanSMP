@@ -1,9 +1,10 @@
 package io.github.kabanfriends.kabansmp.core.module.discord;
 
 import com.discordsrv.api.DiscordSRVApi;
-import io.github.kabanfriends.kabansmp.core.KabanSMPPlugin;
+import io.github.kabanfriends.kabansmp.core.KabanSMP;
 import io.github.kabanfriends.kabansmp.core.config.DiscordConfig;
 import io.github.kabanfriends.kabansmp.core.module.discord.event.DiscordSRVEventHandler;
+import io.github.kabanfriends.kabansmp.core.platform.PlatformCapability;
 import io.github.kabanfriends.kabansmp.core.text.language.LanguageManager;
 import io.github.kabanfriends.kabansmp.core.module.Module;
 import io.github.kabanfriends.kabansmp.core.module.discord.command.CommandSearchUser;
@@ -32,7 +33,7 @@ public class DiscordModule extends Module {
     @Override
     public void onLoad() {
         new DiscordConfig().load();
-        KabanSMPPlugin.getInstance().getLogger().log(Level.INFO, "[Discord] Starting bot");
+        KabanSMP.getInstance().getLogger().log(Level.INFO, "[Discord] Starting bot");
 
         registerCommand("searchuser", new CommandSearchUser());
         registerEvents(new DiscordJoinEventHandler());
@@ -41,7 +42,7 @@ public class DiscordModule extends Module {
 
         // If DiscordSRV is enabled, use their JDA instance
         if (Bukkit.getServer().getPluginManager().isPluginEnabled("DiscordSRV-Ascension") && DiscordSRVApi.isAvailable()) {
-            KabanSMPPlugin.getInstance().getLogger().log(Level.INFO, "[Discord] Using DiscordSRV JDA instance");
+            KabanSMP.getInstance().getLogger().log(Level.INFO, "[Discord] Using DiscordSRV JDA instance");
             DiscordSRVApi.get().eventBus().subscribe(new DiscordSRVEventHandler());
             jda = DiscordSRVApi.get().jda();
             jda.getPresence().setActivity(activity);
@@ -57,7 +58,7 @@ public class DiscordModule extends Module {
 
     @Override
     public void onClose() {
-        KabanSMPPlugin.getInstance().getLogger().log(Level.INFO, "Shutting down Discord bot");
+        KabanSMP.getInstance().getLogger().log(Level.INFO, "Shutting down Discord bot");
 
         if (!isDiscordSRV) {
             // https://jda.wiki/using-jda/troubleshooting/#illegalstateexception-zip-file-closed
@@ -71,6 +72,14 @@ public class DiscordModule extends Module {
         }
     }
 
+    @Override
+    public PlatformCapability[] requiredCapabilities() {
+        return new PlatformCapability[] {
+                PlatformCapability.BUKKIT_API,
+                PlatformCapability.PAPER_API
+        };
+    }
+
     public static void initializeBot() {
         if (initialized) {
             return;
@@ -80,7 +89,7 @@ public class DiscordModule extends Module {
         Guild guild = jda.getGuildById(DiscordConfig.GUILD_ID.get());
 
         if (guild == null) {
-            KabanSMPPlugin.getInstance().getLogger().log(Level.WARNING, "[Discord] Guild " + DiscordConfig.GUILD_ID.get() + " was not found");
+            KabanSMP.getInstance().getLogger().log(Level.WARNING, "[Discord] Guild " + DiscordConfig.GUILD_ID.get() + " was not found");
             return;
         }
 

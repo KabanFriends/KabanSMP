@@ -1,6 +1,6 @@
 package io.github.kabanfriends.kabansmp.core.module.discord.event;
 
-import io.github.kabanfriends.kabansmp.core.KabanSMPPlugin;
+import io.github.kabanfriends.kabansmp.core.KabanSMP;
 import io.github.kabanfriends.kabansmp.core.config.DiscordConfig;
 import io.github.kabanfriends.kabansmp.core.module.discord.DiscordHelper;
 import io.github.kabanfriends.kabansmp.core.module.discord.DiscordLink;
@@ -22,12 +22,12 @@ import java.util.logging.Level;
 public class BotEventHandler {
 
     public static void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
-        KabanSMPPlugin.getInstance().getLogger().log(Level.INFO, "[Discord] " + event.getUser().getName() + " used command " + event.getCommandString());
+        KabanSMP.getInstance().getLogger().log(Level.INFO, "[Discord] " + event.getUser().getName() + " used command " + event.getCommandString());
         SlashCommandInteraction interaction = event.getInteraction();
         Locale locale = event.getUserLocale().toLocale();
 
         if (event.getCommandString().equals("/verify")) {
-            Bukkit.getScheduler().runTaskAsynchronously(KabanSMPPlugin.getInstance(), () -> {
+            Bukkit.getScheduler().runTaskAsynchronously(KabanSMP.getInstance(), () -> {
                 int accounts = DiscordLink.getLinkedUUIDs(event.getUser().getId()).size();
                 if (accounts >= DiscordConfig.MAX_LINKS.get()) {
                     interaction.reply(DiscordHelper.text("discord.message.verify.tooMany", locale, accounts)).setEphemeral(true).queue();
@@ -50,7 +50,7 @@ public class BotEventHandler {
     }
 
     public static void onModalInteraction(ModalInteractionEvent event) {
-        KabanSMPPlugin.getInstance().getLogger().log(Level.INFO, "[Discord] " + event.getUser().getName() + " used modal " + event.getModalId());
+        KabanSMP.getInstance().getLogger().log(Level.INFO, "[Discord] " + event.getUser().getName() + " used modal " + event.getModalId());
         ModalInteraction interaction = event.getInteraction();
         Locale locale = event.getUserLocale().toLocale();
 

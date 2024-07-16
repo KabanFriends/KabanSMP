@@ -1,6 +1,6 @@
 package io.github.kabanfriends.kabansmp.core.module.home.command;
 
-import io.github.kabanfriends.kabansmp.core.KabanSMPPlugin;
+import io.github.kabanfriends.kabansmp.core.KabanSMP;
 import io.github.kabanfriends.kabansmp.core.command.SMPCommand;
 import io.github.kabanfriends.kabansmp.core.module.home.HomeModule;
 import io.github.kabanfriends.kabansmp.core.player.Teleports;
@@ -40,7 +40,7 @@ public class CommandHome implements SMPCommand {
                 return true;
             }
 
-            Bukkit.getScheduler().runTaskAsynchronously(KabanSMPPlugin.getInstance(), () -> {
+            Bukkit.getScheduler().runTaskAsynchronously(KabanSMP.getInstance(), () -> {
                 PlayerData data = PlayerDataManager.getPlayerData(player);
                 Location homeLocation = data.getValue(HomeModule.HOME_LOCATION_DATA);
 
@@ -74,7 +74,7 @@ public class CommandHome implements SMPCommand {
                     return;
                 }
 
-                Bukkit.getScheduler().runTask(KabanSMPPlugin.getInstance(), () -> Teleports.teleport(player, safeLocation, false, () -> {
+                Bukkit.getScheduler().runTask(KabanSMP.getInstance(), () -> Teleports.teleport(player, safeLocation, false, () -> {
                     player.sendMessage(Components.formatted(Format.HOME_SUCCESS, "home.command.home.success"));
 
                     if (!safeLocation.equals(homeLocation)) {

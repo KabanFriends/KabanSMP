@@ -1,6 +1,6 @@
 package io.github.kabanfriends.kabansmp.core.database.migration;
 
-import io.github.kabanfriends.kabansmp.core.KabanSMPPlugin;
+import io.github.kabanfriends.kabansmp.core.KabanSMP;
 import io.github.kabanfriends.kabansmp.core.database.Database;
 import io.github.kabanfriends.kabansmp.core.database.migration.version.DatabaseVersion;
 import io.github.kabanfriends.kabansmp.core.database.migration.version.Version1;
@@ -43,7 +43,7 @@ public class DatabaseMigrator {
             }
 
             if (currentVersion >= DATABASE_VERSION) {
-                KabanSMPPlugin.getInstance().getLogger().log(Level.INFO, "Database version is latest!");
+                KabanSMP.getInstance().getLogger().log(Level.INFO, "Database version is latest!");
                 return;
             }
 
@@ -53,18 +53,18 @@ public class DatabaseMigrator {
             Map<Integer, DatabaseVersion> versions = new HashMap<>();
             versions.put(1, new Version1());
 
-            KabanSMPPlugin.getInstance().getLogger().log(Level.INFO, "Database version (current: " + currentVersion + ", target: " + DATABASE_VERSION + ")");
+            KabanSMP.getInstance().getLogger().log(Level.INFO, "Database version (current: " + currentVersion + ", target: " + DATABASE_VERSION + ")");
 
             for (; currentVersion++ < DATABASE_VERSION;) {
                 DatabaseVersion version = versions.get(currentVersion);
                 if (version == null) {
                     continue;
                 }
-                KabanSMPPlugin.getInstance().getLogger().log(Level.INFO, "Updating to database version " + currentVersion);
+                KabanSMP.getInstance().getLogger().log(Level.INFO, "Updating to database version " + currentVersion);
                 try {
                     version.update(connection);
                 } catch (SQLException e) {
-                    KabanSMPPlugin.getInstance().getLogger().log(Level.SEVERE, "Failed to apply database version " + currentVersion);
+                    KabanSMP.getInstance().getLogger().log(Level.SEVERE, "Failed to apply database version " + currentVersion);
                     break;
                 }
             }

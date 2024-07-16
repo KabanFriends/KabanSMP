@@ -12,5 +12,6 @@ includeBuild("build-logic")
 includeBuild("third-party/Ascension")
 
 include("core")
+include("bukkit")
 include("translation")
 include("injector")

@@ -2,7 +2,7 @@ package io.github.kabanfriends.kabansmp.core.module.discord;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
-import io.github.kabanfriends.kabansmp.core.KabanSMPPlugin;
+import io.github.kabanfriends.kabansmp.core.KabanSMP;
 import io.github.kabanfriends.kabansmp.core.database.Database;
 import org.jetbrains.annotations.Nullable;
 
@@ -35,7 +35,7 @@ public class DiscordLink {
         String verifyCode = createVerifyCode();
         VERIFY_CODES.put(verifyCode, info);
 
-        KabanSMPPlugin.getInstance().getLogger().log(Level.INFO, "Started verification for " + info.displayName() + " (UUID: " + info.uuid() + " Code: " + verifyCode + ")");
+        KabanSMP.getInstance().getLogger().log(Level.INFO, "Started verification for " + info.displayName() + " (UUID: " + info.uuid() + " Code: " + verifyCode + ")");
         return verifyCode;
     }
 

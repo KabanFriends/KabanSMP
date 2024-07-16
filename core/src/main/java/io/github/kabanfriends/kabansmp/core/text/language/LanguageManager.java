@@ -3,7 +3,7 @@ package io.github.kabanfriends.kabansmp.core.text.language;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
-import io.github.kabanfriends.kabansmp.core.KabanSMPPlugin;
+import io.github.kabanfriends.kabansmp.core.KabanSMP;
 import io.github.kabanfriends.kabansmp.core.config.LanguageConfig;
 import io.github.kabanfriends.kabansmp.core.util.ResourceExtractor;
 import io.github.kabanfriends.kabansmp.translation.language.Language;
@@ -13,7 +13,6 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.LocaleUtils;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Locale;
@@ -36,13 +35,13 @@ public class LanguageManager {
         Extract language files from JAR
         */
         try {
-            new ResourceExtractor(KabanSMPPlugin.getInstance(), langDir, "lang", null).extract(false);
+            new ResourceExtractor(KabanSMP.getInstance(), langDir, "lang", null).extract(false);
         } catch (IOException e) {
-            KabanSMPPlugin.getInstance().getLogger().log(Level.WARNING, "Failed to extract default language files!");
+            KabanSMP.getInstance().getLogger().log(Level.WARNING, "Failed to extract default language files!");
             e.printStackTrace();
         }
 
-        KabanSMPPlugin.getInstance().getLogger().log(Level.INFO, "Default locale: " + LanguageConfig.DEFAULT_LOCALE.get());
+        KabanSMP.getInstance().getLogger().log(Level.INFO, "Default locale: " + LanguageConfig.DEFAULT_LOCALE.get());
         translator = new LanguageTranslator(LanguageConfig.DEFAULT_LOCALE.get());
 
         try {
@@ -54,18 +53,18 @@ public class LanguageManager {
                         try {
                             locale = LocaleUtils.toLocale(code);
                         } catch (IllegalArgumentException e) {
-                            KabanSMPPlugin.getInstance().getLogger().log(Level.WARNING, "Invalid locale: " + code);
+                            KabanSMP.getInstance().getLogger().log(Level.WARNING, "Invalid locale: " + code);
                             continue;
                         }
 
-                        KabanSMPPlugin.getInstance().getLogger().log(Level.INFO, "Loading language: " + locale.getLanguage());
+                        KabanSMP.getInstance().getLogger().log(Level.INFO, "Loading language: " + locale.getLanguage());
 
                         // Read the json
                         JsonObject json;
                         try {
                             json = JsonParser.parseReader(new FileReader(file)).getAsJsonObject();
                         } catch (JsonParseException e) {
-                            KabanSMPPlugin.getInstance().getLogger().log(Level.SEVERE, "Invalid json: " + file.getName());
+                            KabanSMP.getInstance().getLogger().log(Level.SEVERE, "Invalid json: " + file.getName());
                             e.printStackTrace();
                             continue;
                         }
@@ -82,7 +81,7 @@ public class LanguageManager {
                 }
             }
         } catch (Exception e) {
-            KabanSMPPlugin.getInstance().getLogger().log(Level.SEVERE, "Failed to load language files:");
+            KabanSMP.getInstance().getLogger().log(Level.SEVERE, "Failed to load language files:");
             e.printStackTrace();
         }
 

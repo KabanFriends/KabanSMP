@@ -1,6 +1,6 @@
 package io.github.kabanfriends.kabansmp.core.module.home.command;
 
-import io.github.kabanfriends.kabansmp.core.KabanSMPPlugin;
+import io.github.kabanfriends.kabansmp.core.KabanSMP;
 import io.github.kabanfriends.kabansmp.core.command.SMPCommand;
 import io.github.kabanfriends.kabansmp.core.player.data.PlayerData;
 import io.github.kabanfriends.kabansmp.core.player.data.PlayerDataManager;
@@ -24,7 +24,7 @@ public class CommandSetHome implements SMPCommand {
             return true;
         }
 
-        Bukkit.getScheduler().runTaskAsynchronously(KabanSMPPlugin.getInstance(), () -> {
+        Bukkit.getScheduler().runTaskAsynchronously(KabanSMP.getInstance(), () -> {
             Location location = player.getLocation().clone();
             location.setPitch(0);
 

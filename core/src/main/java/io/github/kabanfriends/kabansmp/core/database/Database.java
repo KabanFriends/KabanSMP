@@ -1,6 +1,6 @@
 package io.github.kabanfriends.kabansmp.core.database;
 
-import io.github.kabanfriends.kabansmp.core.KabanSMPPlugin;
+import io.github.kabanfriends.kabansmp.core.KabanSMP;
 import io.github.kabanfriends.kabansmp.core.database.migration.DatabaseMigrator;
 import org.bukkit.Bukkit;
 
@@ -17,12 +17,12 @@ public class Database {
     private static Connection connection;
 
     public static void start() {
-        KabanSMPPlugin.getInstance().getLogger().log(Level.INFO, "Loading database");
+        KabanSMP.getInstance().getLogger().log(Level.INFO, "Loading database");
 
         try {
             Class.forName("org.sqlite.JDBC");
         } catch (ClassNotFoundException e) {
-            KabanSMPPlugin.getInstance().getLogger().log(Level.SEVERE, "SQLite JDBC driver could not be found");
+            KabanSMP.getInstance().getLogger().log(Level.SEVERE, "SQLite JDBC driver could not be found");
             e.printStackTrace();
             return;
         }
@@ -30,7 +30,7 @@ public class Database {
         try {
             connection = DriverManager.getConnection("jdbc:sqlite:" + DATABASE_FILE.getPath());
         } catch (SQLException e) {
-            KabanSMPPlugin.getInstance().getLogger().log(Level.SEVERE, "Could not connect to the server database");
+            KabanSMP.getInstance().getLogger().log(Level.SEVERE, "Could not connect to the server database");
             e.printStackTrace();
             return;
         }
@@ -59,7 +59,7 @@ public class Database {
     }
 
     public static void connectionAsync(Callback<Connection, SQLException> callback) {
-        Bukkit.getScheduler().runTaskAsynchronously(KabanSMPPlugin.getInstance(), () -> connection(callback));
+        Bukkit.getScheduler().runTaskAsynchronously(KabanSMP.getInstance(), () -> connection(callback));
     }
 
     public interface Callback<T, U extends Throwable> {

@@ -1,6 +1,6 @@
 package io.github.kabanfriends.kabansmp.core.module.hardcore.event;
 
-import io.github.kabanfriends.kabansmp.core.KabanSMPPlugin;
+import io.github.kabanfriends.kabansmp.core.KabanSMP;
 import io.github.kabanfriends.kabansmp.core.util.api.PlayerAPI;
 import io.github.kabanfriends.kabansmp.core.module.hardcore.HardcoreModule;
 import io.github.kabanfriends.kabansmp.core.player.PlayerNames;
@@ -29,7 +29,7 @@ public class HardcoreDeathEventHandler implements Listener {
             HardcoreModule.PLAYERS_TO_RESPAWN.add(player);
         }
 
-        Bukkit.getScheduler().runTaskAsynchronously(KabanSMPPlugin.getInstance(), () -> {
+        Bukkit.getScheduler().runTaskAsynchronously(KabanSMP.getInstance(), () -> {
             int deaths = data.getValue(HardcoreModule.DEATH_COUNT_DATA);
             data.setValue(HardcoreModule.DEATH_COUNT_DATA, ++deaths);
             if (isHardcore) {

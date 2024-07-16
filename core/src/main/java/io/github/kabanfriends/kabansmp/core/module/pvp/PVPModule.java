@@ -3,6 +3,7 @@ package io.github.kabanfriends.kabansmp.core.module.pvp;
 import io.github.kabanfriends.kabansmp.core.module.Module;
 import io.github.kabanfriends.kabansmp.core.module.pvp.command.CommandPVP;
 import io.github.kabanfriends.kabansmp.core.module.pvp.event.PVPEventHandler;
+import io.github.kabanfriends.kabansmp.core.platform.PlatformCapability;
 import org.bukkit.entity.Player;
 
 import java.util.HashSet;
@@ -16,5 +17,13 @@ public class PVPModule extends Module {
     public void onLoad() {
         registerCommand("pvp", new CommandPVP());
         registerEvents(new PVPEventHandler());
+    }
+
+    @Override
+    public PlatformCapability[] requiredCapabilities() {
+        return new PlatformCapability[] {
+                PlatformCapability.BUKKIT_API,
+                PlatformCapability.PAPER_API
+        };
     }
 }

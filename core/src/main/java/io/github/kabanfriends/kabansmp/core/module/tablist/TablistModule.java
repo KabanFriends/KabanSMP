@@ -2,8 +2,9 @@ package io.github.kabanfriends.kabansmp.core.module.tablist;
 
 import io.github.kabanfriends.kabansmp.core.config.TablistConfig;
 import io.github.kabanfriends.kabansmp.core.module.Module;
+import io.github.kabanfriends.kabansmp.core.platform.PlatformCapability;
 import io.github.kabanfriends.kabansmp.core.text.Components;
-import io.github.kabanfriends.kabansmp.core.KabanSMPPlugin;
+import io.github.kabanfriends.kabansmp.core.KabanSMP;
 import io.github.kabanfriends.kabansmp.core.text.formatting.ServerColors;
 import net.kyori.adventure.text.Component;
 import net.milkbowl.vault.chat.Chat;
@@ -12,7 +13,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.MetadataValue;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scheduler.BukkitTask;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,28 +21,32 @@ public class TablistModule extends Module {
 
     private static final int TABLIST_SEND_INTERVAL = 1;
 
-    private static Economy econ;
-    private static Chat chat;
+    private static Object /*Economy*/ econ;
+    private static Object /*Chat*/ chat;
 
     @Override
     public void onLoad() {
         new TablistConfig().load();
 
-        var econProvider = Bukkit.getServer().getServicesManager().getRegistration(Economy.class);
-        if (econProvider != null) {
-            econ = econProvider.getProvider();
+        if (TablistConfig.SHOW_MONEY.get()) {
+            var econProvider = Bukkit.getServer().getServicesManager().getRegistration(Economy.class);
+            if (econProvider != null) {
+                econ = econProvider.getProvider();
+            }
         }
 
-        var chatProvider = Bukkit.getServer().getServicesManager().getRegistration(Chat.class);
-        if (chatProvider != null) {
-            chat = chatProvider.getProvider();
+        if (TablistConfig.CUSTOM_PLAYER_NAME.get()) {
+            var chatProvider = Bukkit.getServer().getServicesManager().getRegistration(Chat.class);
+            if (chatProvider != null) {
+                chat = chatProvider.getProvider();
+            }
         }
 
-        BukkitTask tablistTask = new BukkitRunnable() {
+        new BukkitRunnable() {
             public void run() {
                 for (Player player : Bukkit.getOnlinePlayers()) sendTablist(player);
             }
-        }.runTaskTimer(KabanSMPPlugin.getInstance(), TABLIST_SEND_INTERVAL * 20, TABLIST_SEND_INTERVAL * 20);
+        }.runTaskTimer(KabanSMP.getInstance(), TABLIST_SEND_INTERVAL * 20, TABLIST_SEND_INTERVAL * 20);
     }
 
     public static void sendTablist(Player player) {
@@ -62,7 +66,7 @@ public class TablistModule extends Module {
         ).color(ServerColors.GRAY_LIGHT));
         if (TablistConfig.SHOW_MONEY.get()) {
             header.add(Components.translatable("tablist.footer.balance",
-                    Component.text(econ.format(econ.getBalance(player))).color(ServerColors.WHITE)
+                    Component.text(((Economy) econ).format(((Economy) econ).getBalance(player))).color(ServerColors.WHITE)
             ).color(ServerColors.GRAY_LIGHT));
         }
         header.add(Components.translatable("tablist.footer.coordinate",
@@ -74,7 +78,7 @@ public class TablistModule extends Module {
 
         if (TablistConfig.CUSTOM_PLAYER_NAME.get()) {
             // Set tablist player name
-            String prefix = chat.getGroupPrefix(player.getWorld(), chat.getPrimaryGroup(player));
+            String prefix = ((Chat) chat).getGroupPrefix(player.getWorld(), ((Chat) chat).getPrimaryGroup(player));
             prefix = prefix.replaceAll("#([a-fA-F0-9]{6})", "§#$1");
             Component name = Component.empty();
             if (!prefix.isEmpty()) {
@@ -94,5 +98,13 @@ public class TablistModule extends Module {
             if (meta.asBoolean()) return true;
         }
         return false;
+    }
+
+    @Override
+    public PlatformCapability[] requiredCapabilities() {
+        return new PlatformCapability[] {
+                PlatformCapability.BUKKIT_API,
+                PlatformCapability.PAPER_API
+        };
     }
 }

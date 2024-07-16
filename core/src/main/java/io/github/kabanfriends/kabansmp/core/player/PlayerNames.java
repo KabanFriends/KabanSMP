@@ -1,6 +1,6 @@
 package io.github.kabanfriends.kabansmp.core.player;
 
-import io.github.kabanfriends.kabansmp.core.KabanSMPPlugin;
+import io.github.kabanfriends.kabansmp.core.KabanSMP;
 import io.github.kabanfriends.kabansmp.core.module.hardcore.HardcoreModule;
 import io.github.kabanfriends.kabansmp.core.player.data.PlayerData;
 import io.github.kabanfriends.kabansmp.core.player.data.PlayerDataManager;
@@ -22,7 +22,7 @@ public class PlayerNames {
     }
 
     public static void setDisplayName(Player player, @Nullable Component name) {
-        Bukkit.getScheduler().runTaskAsynchronously(KabanSMPPlugin.getInstance(), () -> {
+        Bukkit.getScheduler().runTaskAsynchronously(KabanSMP.getInstance(), () -> {
             Component toSet = name;
             PlayerData data = PlayerDataManager.getPlayerData(player);
             if (data.getValue(HardcoreModule.HARDCORE_MODE_DATA)) {

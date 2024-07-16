@@ -1,7 +1,8 @@
 package io.github.kabanfriends.kabansmp.core.module;
 
-import io.github.kabanfriends.kabansmp.core.KabanSMPPlugin;
+import io.github.kabanfriends.kabansmp.core.KabanSMP;
 import io.github.kabanfriends.kabansmp.core.command.SMPCommand;
+import io.github.kabanfriends.kabansmp.core.platform.PlatformCapability;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -46,6 +47,8 @@ public abstract class Module {
     }
 
     public void registerEvents(Listener listener) {
-        Bukkit.getServer().getPluginManager().registerEvents(listener, KabanSMPPlugin.getInstance());
+        Bukkit.getServer().getPluginManager().registerEvents(listener, KabanSMP.getInstance());
     }
+
+    public abstract PlatformCapability[] requiredCapabilities();
 }

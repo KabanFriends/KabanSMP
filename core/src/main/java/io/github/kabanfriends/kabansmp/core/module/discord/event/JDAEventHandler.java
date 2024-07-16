@@ -1,6 +1,6 @@
 package io.github.kabanfriends.kabansmp.core.module.discord.event;
 
-import io.github.kabanfriends.kabansmp.core.KabanSMPPlugin;
+import io.github.kabanfriends.kabansmp.core.KabanSMP;
 import io.github.kabanfriends.kabansmp.core.module.discord.*;
 import net.dv8tion.jda.api.events.interaction.ModalInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -13,7 +13,7 @@ public class JDAEventHandler extends ListenerAdapter {
 
     @Override
     public void onReady(ReadyEvent event) {
-        KabanSMPPlugin.getInstance().getLogger().log(Level.INFO, "[Discord] Bot is ready!");
+        KabanSMP.getInstance().getLogger().log(Level.INFO, "[Discord] Bot is ready!");
         DiscordModule.initializeBot();
     }
 

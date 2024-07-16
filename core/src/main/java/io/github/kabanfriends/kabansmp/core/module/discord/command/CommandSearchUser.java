@@ -1,6 +1,6 @@
 package io.github.kabanfriends.kabansmp.core.module.discord.command;
 
-import io.github.kabanfriends.kabansmp.core.KabanSMPPlugin;
+import io.github.kabanfriends.kabansmp.core.KabanSMP;
 import io.github.kabanfriends.kabansmp.core.command.SMPCommand;
 import io.github.kabanfriends.kabansmp.core.module.discord.DiscordLink;
 import io.github.kabanfriends.kabansmp.core.module.discord.DiscordUserInfo;
@@ -22,7 +22,7 @@ public class CommandSearchUser implements SMPCommand {
             return true;
         }
 
-        Bukkit.getScheduler().runTaskAsynchronously(KabanSMPPlugin.getInstance(), () -> {
+        Bukkit.getScheduler().runTaskAsynchronously(KabanSMP.getInstance(), () -> {
             String query = args[0];
             if (query.matches("^[\\d]{17,}$")) { // Looks like a discord ID, search MC users
                 DiscordUserInfo info = DiscordLink.getDiscordUserFromID(query);

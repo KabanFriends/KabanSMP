@@ -1,6 +1,6 @@
 package io.github.kabanfriends.kabansmp.core.module.join.event;
 
-import io.github.kabanfriends.kabansmp.core.KabanSMPPlugin;
+import io.github.kabanfriends.kabansmp.core.KabanSMP;
 import io.github.kabanfriends.kabansmp.injector.api.ChatMixinAPI;
 import io.github.kabanfriends.kabansmp.core.config.SharedConfig;
 import io.github.kabanfriends.kabansmp.core.module.damage.DamageModule;
@@ -36,7 +36,7 @@ public class JoinEventHandler implements Listener {
                 isBedrock ? Components.translatable("all.minecraft.bedrock") : Components.translatable("all.minecraft.java")
         ));
 
-        Bukkit.getScheduler().runTaskLaterAsynchronously(KabanSMPPlugin.getInstance(), () -> {
+        Bukkit.getScheduler().runTaskLaterAsynchronously(KabanSMP.getInstance(), () -> {
             if (!player.isOnline()) {
                 return;
             }

@@ -3,6 +3,7 @@ package io.github.kabanfriends.kabansmp.core.module.home;
 import io.github.kabanfriends.kabansmp.core.module.Module;
 import io.github.kabanfriends.kabansmp.core.module.home.command.CommandSetHome;
 import io.github.kabanfriends.kabansmp.core.module.home.command.CommandHome;
+import io.github.kabanfriends.kabansmp.core.platform.PlatformCapability;
 import io.github.kabanfriends.kabansmp.core.player.data.DataField;
 import io.github.kabanfriends.kabansmp.core.codec.impl.ByteCodecs;
 import org.bukkit.Location;
@@ -15,5 +16,13 @@ public class HomeModule extends Module {
     public void onLoad() {
         registerCommand("sethome", new CommandSetHome());
         registerCommand("home", new CommandHome());
+    }
+
+    @Override
+    public PlatformCapability[] requiredCapabilities() {
+        return new PlatformCapability[] {
+                PlatformCapability.BUKKIT_API,
+                PlatformCapability.PAPER_API
+        };
     }
 }
