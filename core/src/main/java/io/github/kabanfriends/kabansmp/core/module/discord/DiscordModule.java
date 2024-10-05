@@ -41,7 +41,7 @@ public class DiscordModule extends Module {
         Activity activity = Activity.customStatus(DiscordHelper.text("discord.bot.status"));
 
         // If DiscordSRV is enabled, use their JDA instance
-        if (Bukkit.getServer().getPluginManager().isPluginEnabled("DiscordSRV-Ascension") && DiscordSRVApi.isAvailable()) {
+        if (DiscordConfig.USE_DISCORDSRV.get() && Bukkit.getServer().getPluginManager().isPluginEnabled("DiscordSRV-Ascension") && DiscordSRVApi.isAvailable()) {
             KabanSMP.getInstance().getLogger().log(Level.INFO, "[Discord] Using DiscordSRV JDA instance");
             DiscordSRVApi.get().eventBus().subscribe(new DiscordSRVEventHandler());
             jda = DiscordSRVApi.get().jda();
@@ -75,8 +75,7 @@ public class DiscordModule extends Module {
     @Override
     public PlatformCapability[] requiredCapabilities() {
         return new PlatformCapability[] {
-                PlatformCapability.BUKKIT_API,
-                PlatformCapability.PAPER_API
+                PlatformCapability.BUKKIT_API
         };
     }
 

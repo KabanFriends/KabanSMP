@@ -18,17 +18,11 @@
   "all.chat.clickToOpen": "Click to open",
   "all.chat.clickToSelect": "Click to select",
 
-  "all.proxy.server.name.survival": "survival",
-  "all.proxy.server.name.creative": "creative",
-
   "base.command.reloadlang.success": "Language files have been reloaded.",
 
-  "join.message.joined": "{0} joined ({1})",
+  "join.message.joined": "{0} joined",
+  "join.message.joined.edition": "{0} joined ({1})",
   "join.message.left": "{0} left",
-
-  "join.proxy.message.joined": "{0} joined to {1} ({2})",
-  "join.proxy.message.left": "{0} left",
-  "join.proxy.message.changed": "{0} moved to {1}",
 
   "join.message.website": "Check out the website to see all features of our server: {0}",
 
@@ -58,8 +52,6 @@
   "hardcore.tooltip.chatTag": "Hardcore Mode",
 
   "spawn.command.spawn.success": "Teleported to the server spawn.",
-
-  "collision.kickReason": "The server is still loading! Please try again in a few seconds.",
 
   "discord.bot.status": "✅ Type /verify",
   "discord.command.verify.description": "Link your Discord account to a Minecraft player",

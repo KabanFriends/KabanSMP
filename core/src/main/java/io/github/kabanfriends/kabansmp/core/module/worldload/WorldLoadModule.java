@@ -1,14 +1,17 @@
-package io.github.kabanfriends.kabansmp.core.module.join;
+package io.github.kabanfriends.kabansmp.core.module.worldload;
 
+import io.github.kabanfriends.kabansmp.core.config.WorldLoadConfig;
 import io.github.kabanfriends.kabansmp.core.module.Module;
-import io.github.kabanfriends.kabansmp.core.module.join.event.JoinEventHandler;
+import io.github.kabanfriends.kabansmp.core.module.worldload.event.WorldLoadEventHandler;
 import io.github.kabanfriends.kabansmp.core.platform.PlatformCapability;
 
-public class JoinModule extends Module {
+public class WorldLoadModule extends Module {
 
     @Override
     public void onLoad() {
-        registerEvents(new JoinEventHandler());
+        new WorldLoadConfig().load();
+
+        registerEvents(new WorldLoadEventHandler());
     }
 
     @Override

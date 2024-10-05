@@ -8,12 +8,8 @@ import net.kyori.adventure.text.Component;
 
 public class CollisionModule extends Module {
 
-    public static Component kickReason;
-
     @Override
     public void onLoad() {
-        kickReason = Components.translate("collision.kickReason");
-
         registerEvents(new CollisionEventHandler());
     }
 

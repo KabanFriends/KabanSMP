@@ -1,4 +1,4 @@
-package io.github.kabanfriends.kabansmp.core.module.serverlinks.events;
+package io.github.kabanfriends.kabansmp.core.module.serverlinks.event;
 
 import io.github.kabanfriends.kabansmp.core.module.serverlinks.ServerLinksManager;
 import io.github.kabanfriends.kabansmp.core.util.api.ServerAPI;

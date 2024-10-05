@@ -6,10 +6,12 @@ import io.github.kabanfriends.kabansmp.core.platform.PlatformCapability;
 import io.github.kabanfriends.kabansmp.core.text.Components;
 import io.github.kabanfriends.kabansmp.core.KabanSMP;
 import io.github.kabanfriends.kabansmp.core.text.formatting.ServerColors;
+import io.github.kabanfriends.kabansmp.core.util.AdventureUtil;
 import net.kyori.adventure.text.Component;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.MetadataValue;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -55,26 +57,32 @@ public class TablistModule extends Module {
             if (!isVanished(p)) players++;
         }
 
-        List<Component> header = new ArrayList<>();
+        List<Component> headerLines = new ArrayList<>();
 
         if (TablistConfig.SHOW_SERVER_NAME.get()) {
-            header.add(TablistConfig.SERVER_NAME.get());
-            header.add(Component.empty());
+            headerLines.add(TablistConfig.SERVER_NAME.get());
+            headerLines.add(Component.empty());
         }
-        header.add(Components.translatable("tablist.header.players",
+        headerLines.add(Components.translatable("tablist.header.players",
                 Component.text(players + "/" + Bukkit.getMaxPlayers()).color(ServerColors.WHITE)
         ).color(ServerColors.GRAY_LIGHT));
         if (TablistConfig.SHOW_MONEY.get()) {
-            header.add(Components.translatable("tablist.footer.balance",
+            headerLines.add(Components.translatable("tablist.footer.balance",
                     Component.text(((Economy) econ).format(((Economy) econ).getBalance(player))).color(ServerColors.WHITE)
             ).color(ServerColors.GRAY_LIGHT));
         }
-        header.add(Components.translatable("tablist.footer.coordinate",
-                Component.text((int) Math.floor(player.getX()) + ", " + (int) Math.floor(player.getY()) + ", " + (int) Math.floor(player.getZ())).color(ServerColors.WHITE)
+        Location location = player.getLocation();
+        headerLines.add(Components.translatable("tablist.footer.coordinate",
+                Component.text((int) Math.floor(location.getX()) + ", " + (int) Math.floor(location.getY()) + ", " + (int) Math.floor(location.getZ())).color(ServerColors.WHITE)
         ).color(ServerColors.GRAY_LIGHT));
 
+        Component header = Components.newlined(headerLines);
         // Send tablist header and footer
-        player.sendPlayerListHeader(Components.newlined(header));
+        if (KabanSMP.getInstance().getPlatform().hasCapability(PlatformCapability.PAPER_API)) {
+            player.sendPlayerListHeader(header);
+        } else {
+            player.setPlayerListHeaderFooter(AdventureUtil.toLegacy(header, player.getLocale()), null);
+        }
 
         if (TablistConfig.CUSTOM_PLAYER_NAME.get()) {
             // Set tablist player name
@@ -85,7 +93,12 @@ public class TablistModule extends Module {
                 name = Components.legacy(prefix).appendSpace();
             }
 
-            player.playerListName(name.append(player.displayName()));
+            Component fullName = name.append(AdventureUtil.getPlayerDisplayName(player));
+            if (KabanSMP.getInstance().getPlatform().hasCapability(PlatformCapability.PAPER_API)) {
+                player.playerListName(fullName);
+            } else {
+                player.setPlayerListName(AdventureUtil.toLegacy(fullName));
+            }
         }
     }
 
@@ -103,8 +116,7 @@ public class TablistModule extends Module {
     @Override
     public PlatformCapability[] requiredCapabilities() {
         return new PlatformCapability[] {
-                PlatformCapability.BUKKIT_API,
-                PlatformCapability.PAPER_API
+                PlatformCapability.BUKKIT_API
         };
     }
 }

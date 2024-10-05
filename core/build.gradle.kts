@@ -21,6 +21,7 @@ dependencies {
 
     compileOnly(project(":injector"))
 
+    compileOnly("net.kyori:adventure-platform-bukkit:4.3.3") { isTransitive = false }
     compileOnly("org.geysermc.floodgate:api:2.2.3-SNAPSHOT")
     compileOnly("com.github.MilkBowl:VaultAPI:1.7") { exclude("org.bukkit") }
     compileOnly("com.github.retrooper.packetevents:spigot:2.3.0")

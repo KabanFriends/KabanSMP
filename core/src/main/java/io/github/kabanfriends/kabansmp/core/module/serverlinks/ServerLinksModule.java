@@ -2,7 +2,7 @@ package io.github.kabanfriends.kabansmp.core.module.serverlinks;
 
 import io.github.kabanfriends.kabansmp.core.config.ServerLinksConfig;
 import io.github.kabanfriends.kabansmp.core.module.Module;
-import io.github.kabanfriends.kabansmp.core.module.serverlinks.events.ServerLinkEventHandler;
+import io.github.kabanfriends.kabansmp.core.module.serverlinks.event.ServerLinkEventHandler;
 import io.github.kabanfriends.kabansmp.core.platform.PlatformCapability;
 
 public class ServerLinksModule extends Module {

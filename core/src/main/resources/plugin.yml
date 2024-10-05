@@ -1,6 +1,6 @@
 name: KabanSMP
 main: io.github.kabanfriends.kabansmp.paper.KabanSMPPaper
-version: 2.0.0
+version: 2.0.1
 author: KabanFriends
 api-version: 1.20
 depend:

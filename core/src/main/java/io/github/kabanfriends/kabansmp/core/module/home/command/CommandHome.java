@@ -3,12 +3,14 @@ package io.github.kabanfriends.kabansmp.core.module.home.command;
 import io.github.kabanfriends.kabansmp.core.KabanSMP;
 import io.github.kabanfriends.kabansmp.core.command.SMPCommand;
 import io.github.kabanfriends.kabansmp.core.module.home.HomeModule;
+import io.github.kabanfriends.kabansmp.core.platform.PlatformCapability;
 import io.github.kabanfriends.kabansmp.core.player.Teleports;
 import io.github.kabanfriends.kabansmp.core.player.data.PlayerData;
 import io.github.kabanfriends.kabansmp.core.player.data.PlayerDataManager;
 import io.github.kabanfriends.kabansmp.core.text.Components;
 import io.github.kabanfriends.kabansmp.core.text.formatting.Format;
 import io.github.kabanfriends.kabansmp.core.text.formatting.ServerColors;
+import io.github.kabanfriends.kabansmp.core.util.AdventureUtil;
 import io.github.kabanfriends.kabansmp.core.util.LocationUtil;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
@@ -30,9 +32,10 @@ public class CommandHome implements SMPCommand {
         if (sender instanceof Player) {
             Player player = (Player) sender;
 
-            if (COMMAND_USE_TICKS.containsKey(player) && Bukkit.getCurrentTick() - COMMAND_USE_TICKS.get(player) <= COOLDOWN_TICKS) {
-                int left = COOLDOWN_TICKS - (Bukkit.getCurrentTick() - COMMAND_USE_TICKS.get(player));
-                player.sendMessage(Components.formatted(
+            int currentTick = KabanSMP.getInstance().getPlatform().hasCapability(PlatformCapability.PAPER_API) ? Bukkit.getCurrentTick() : KabanSMP.getInstance().getAdapter().getCurrentTick();
+            if (COMMAND_USE_TICKS.containsKey(player) && currentTick - COMMAND_USE_TICKS.get(player) <= COOLDOWN_TICKS) {
+                int left = COOLDOWN_TICKS - (currentTick - COMMAND_USE_TICKS.get(player));
+                AdventureUtil.sendMessage(player, Components.formatted(
                         Format.HOME_FAIL,
                         "home.command.home.cooldown",
                         Components.translatable("all.time.seconds", left / 20f).color(ServerColors.MUSTARD)
@@ -45,7 +48,7 @@ public class CommandHome implements SMPCommand {
                 Location homeLocation = data.getValue(HomeModule.HOME_LOCATION_DATA);
 
                 if (homeLocation == null) {
-                    player.sendMessage(Components.formatted(
+                    AdventureUtil.sendMessage(player, Components.formatted(
                             Format.HOME_NOTIFY,
                             "home.command.home.notSet",
                             Component.text("/sethome").color(ServerColors.MUSTARD)
@@ -58,16 +61,14 @@ public class CommandHome implements SMPCommand {
                 }
 
                 // TODO: Move this to a common logic for warp
-                homeLocation.set(
-                        Math.floor(homeLocation.getX()) + 0.5,
-                        Math.floor(homeLocation.getY()),
-                        Math.floor(homeLocation.getZ()) + 0.5
-                );
+                homeLocation.setX(Math.floor(homeLocation.getX()) + 0.5);
+                homeLocation.setY(Math.floor(homeLocation.getY()));
+                homeLocation.setZ(Math.floor(homeLocation.getZ()) + 0.5);
 
-                COMMAND_USE_TICKS.put(player, Bukkit.getCurrentTick());
+                COMMAND_USE_TICKS.put(player, currentTick);
                 Location safeLocation = LocationUtil.getSafeDestination(homeLocation);
                 if (safeLocation == null) {
-                    player.sendMessage(Components.formatted(
+                    AdventureUtil.sendMessage(player, Components.formatted(
                             Format.HOME_FAIL,
                             "home.command.home.notSafe"
                     ));
@@ -75,10 +76,10 @@ public class CommandHome implements SMPCommand {
                 }
 
                 Bukkit.getScheduler().runTask(KabanSMP.getInstance(), () -> Teleports.teleport(player, safeLocation, false, () -> {
-                    player.sendMessage(Components.formatted(Format.HOME_SUCCESS, "home.command.home.success"));
+                    AdventureUtil.sendMessage(player, Components.formatted(Format.HOME_SUCCESS, "home.command.home.success"));
 
                     if (!safeLocation.equals(homeLocation)) {
-                        player.sendMessage(Components.formatted(
+                        AdventureUtil.sendMessage(player, Components.formatted(
                                 Format.HOME_NOTIFY,
                                 "home.command.home.moved",
                                 Component.text("/sethome").color(ServerColors.MUSTARD)

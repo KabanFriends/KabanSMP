@@ -15,6 +15,7 @@ import io.github.kabanfriends.kabansmp.core.module.serverlinks.ServerLinksModule
 import io.github.kabanfriends.kabansmp.core.module.spawn.SpawnModule;
 import io.github.kabanfriends.kabansmp.core.module.tablist.TablistModule;
 import io.github.kabanfriends.kabansmp.core.module.test.TestModule;
+import io.github.kabanfriends.kabansmp.core.module.worldload.WorldLoadModule;
 import io.github.kabanfriends.kabansmp.core.platform.PlatformCapability;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -94,6 +95,7 @@ public class Modules {
             case "collision" -> new CollisionModule();
             case "discord" -> new DiscordModule();
             case "serverlinks" -> new ServerLinksModule();
+            case "worldload" -> new WorldLoadModule();
             default -> null;
         };
     }

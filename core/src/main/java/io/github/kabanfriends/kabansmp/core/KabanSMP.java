@@ -1,6 +1,7 @@
 package io.github.kabanfriends.kabansmp.core;
 
 import com.github.retrooper.packetevents.PacketEvents;
+import io.github.kabanfriends.kabansmp.core.adapter.Adapter;
 import io.github.kabanfriends.kabansmp.core.config.SharedConfig;
 import io.github.kabanfriends.kabansmp.core.database.Database;
 import io.github.kabanfriends.kabansmp.core.platform.Platform;
@@ -9,6 +10,7 @@ import io.github.kabanfriends.kabansmp.core.text.language.LanguageManager;
 import io.github.kabanfriends.kabansmp.core.module.Modules;
 import io.github.kabanfriends.kabansmp.core.text.Components;
 import io.github.kabanfriends.kabansmp.core.text.formatting.Format;
+import io.github.kabanfriends.kabansmp.core.util.AdventureUtil;
 import io.github.retrooper.packetevents.factory.spigot.SpigotPacketEventsBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -24,8 +26,12 @@ public class KabanSMP extends JavaPlugin {
 
     private Platform platform;
 
+    private Adapter adapter;
+
     @Override
     public void onLoad() {
+        instance = this;
+
         if (platform == null) {
             throw new IllegalStateException("No platform is specified!");
         }
@@ -37,8 +43,6 @@ public class KabanSMP extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        instance = this;
-
         File pluginDir = new File("plugins/KabanSMP");
         if (!pluginDir.exists()) {
             pluginDir.mkdir();
@@ -68,7 +72,7 @@ public class KabanSMP extends JavaPlugin {
         if (Modules.handleCommand(sender, cmd, args)) {
             return true;
         }
-        sender.sendMessage(Components.formatted(Format.GENERIC_FAIL, "all.command.notLoaded"));
+        AdventureUtil.sendMessage(sender, Components.formatted(Format.GENERIC_FAIL, "all.command.notLoaded"));
         return true;
     }
 
@@ -83,6 +87,14 @@ public class KabanSMP extends JavaPlugin {
 
     public Platform getPlatform() {
         return platform;
+    }
+
+    public void setAdapter(Adapter adapter) {
+        this.adapter = adapter;
+    }
+
+    public Adapter getAdapter() {
+        return adapter;
     }
 
     public static KabanSMP getInstance() {

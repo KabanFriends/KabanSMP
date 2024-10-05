@@ -3,9 +3,8 @@ package io.github.kabanfriends.kabansmp.core.module.hardcore;
 import com.github.retrooper.packetevents.PacketEvents;
 import com.github.retrooper.packetevents.event.PacketListenerPriority;
 import io.github.kabanfriends.kabansmp.core.module.Module;
-import io.github.kabanfriends.kabansmp.core.module.hardcore.event.HardcoreDeathEventHandler;
+import io.github.kabanfriends.kabansmp.core.module.hardcore.event.HardcoreEventHandler;
 import io.github.kabanfriends.kabansmp.core.module.hardcore.command.CommandHardcore;
-import io.github.kabanfriends.kabansmp.core.module.hardcore.event.HardcoreJoinEventHandler;
 import io.github.kabanfriends.kabansmp.core.module.hardcore.event.HardcorePacketListener;
 import io.github.kabanfriends.kabansmp.core.platform.PlatformCapability;
 import io.github.kabanfriends.kabansmp.core.player.data.DataField;
@@ -26,8 +25,7 @@ public class HardcoreModule extends Module {
     public void onLoad() {
         PacketEvents.getAPI().getEventManager().registerListener(new HardcorePacketListener(), PacketListenerPriority.NORMAL);
         registerCommand("hardcore", new CommandHardcore());
-        registerEvents(new HardcoreDeathEventHandler());
-        registerEvents(new HardcoreJoinEventHandler());
+        registerEvents(new HardcoreEventHandler());
     }
 
     @Override

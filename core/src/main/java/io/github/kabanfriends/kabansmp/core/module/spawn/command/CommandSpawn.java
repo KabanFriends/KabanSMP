@@ -4,6 +4,7 @@ import io.github.kabanfriends.kabansmp.core.command.SMPCommand;
 import io.github.kabanfriends.kabansmp.core.player.Teleports;
 import io.github.kabanfriends.kabansmp.core.text.Components;
 import io.github.kabanfriends.kabansmp.core.text.formatting.Format;
+import io.github.kabanfriends.kabansmp.core.util.AdventureUtil;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -18,7 +19,7 @@ public class CommandSpawn implements SMPCommand {
         }
         Location loc = player.getWorld().getSpawnLocation().clone();
         loc.add(0.5, 0, 0.5);
-        Teleports.teleport(player, loc, true, () -> player.sendMessage(Components.formatted(Format.HOME_SUCCESS, "spawn.command.spawn.success")));
+        Teleports.teleport(player, loc, true, () -> AdventureUtil.sendMessage(player, Components.formatted(Format.HOME_SUCCESS, "spawn.command.spawn.success")));
         return true;
     }
 }

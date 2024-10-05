@@ -1,7 +1,10 @@
 package io.github.kabanfriends.kabansmp.core.module.motd.event;
 
+import io.github.kabanfriends.kabansmp.core.KabanSMP;
 import io.github.kabanfriends.kabansmp.core.config.MotdConfig;
+import io.github.kabanfriends.kabansmp.core.platform.PlatformCapability;
 import io.github.kabanfriends.kabansmp.core.text.Components;
+import io.github.kabanfriends.kabansmp.core.util.AdventureUtil;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
@@ -28,6 +31,12 @@ public class MotdEventHandler implements Listener {
             lines[i] = MiniMessage.miniMessage().deserialize(line, Placeholder.component("random", random));
         }
 
-        event.motd(Components.newlined(lines));
+        Component motd = Components.newlined(lines);
+
+        if (KabanSMP.getInstance().getPlatform().hasCapability(PlatformCapability.PAPER_API)) {
+            event.motd(motd);
+        } else {
+            event.setMotd(AdventureUtil.toLegacy(motd));
+        }
     }
 }

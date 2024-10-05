@@ -16,8 +16,7 @@ public class MotdModule extends Module {
     @Override
     public PlatformCapability[] requiredCapabilities() {
         return new PlatformCapability[] {
-                PlatformCapability.BUKKIT_API,
-                PlatformCapability.PAPER_API
+                PlatformCapability.BUKKIT_API
         };
     }
 }
